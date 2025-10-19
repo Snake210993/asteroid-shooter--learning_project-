@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cditvy3j6e17w"]
+
+[ext_resource type="PackedScene" uid="uid://327vdnnkmu8k" path="res://core/scenes/objects/Player_Ship.tscn" id="1_ku4n5"]
+[ext_resource type="Script" uid="uid://dbf7u6yg8ewr8" path="res://core/scenes/asteroid_game_root.gd" id="1_nq0rc"]
+
+[node name="Asteroid_Root_Node" type="Node"]
+script = ExtResource("1_nq0rc")
+
+[node name="Game_Camera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="PlayerShip" parent="." instance=ExtResource("1_ku4n5")]

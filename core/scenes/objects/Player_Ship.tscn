@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://327vdnnkmu8k"]
+
+[ext_resource type="Script" uid="uid://bfpv4lkyvmn6r" path="res://core/scenes/objects/script/player_ship.gd" id="1_glpa6"]
+[ext_resource type="Texture2D" uid="uid://32y2xjtb346b" path="res://core/resources/asteroid_shooter_ship.tres" id="1_qhiiv"]
+[ext_resource type="PackedScene" uid="uid://d12dcf3qc13ai" path="res://reusable/components/health.tscn" id="3_4n1ev"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glpa6"]
+size = Vector2(6, 13.5)
+
+[node name="PlayerShip" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_glpa6")
+speed = 250.0
+
+[node name="Ship" type="CharacterBody2D" parent="."]
+motion_mode = 1
+
+[node name="Ship_Collision" type="CollisionShape2D" parent="Ship"]
+shape = SubResource("RectangleShape2D_glpa6")
+
+[node name="Ship_Texture" type="Sprite2D" parent="Ship"]
+texture_filter = 1
+texture = ExtResource("1_qhiiv")
+
+[node name="Health" parent="Ship" instance=ExtResource("3_4n1ev")]
