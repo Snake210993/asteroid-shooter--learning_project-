@@ -1,5 +1,5 @@
 {
-	"version": 1,
+	"version": 1.0,
 	"meta": {
 		"tag_colors": {
 
@@ -12,6 +12,13 @@
 				"tags": [],
 				"timestamp": 1760906372.45,
 				"priority": 2.0,
+				"estimate": 1.0
+			},
+			{
+				"text": "let ship and buullets return on the opposite side after leaving screen",
+				"tags": [],
+				"timestamp": 1760991828.564,
+				"priority": 3.0,
 				"estimate": 1
 			}
 		]
