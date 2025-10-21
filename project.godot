@@ -14,6 +14,12 @@ config/name="Asteroid Shooter"
 run/main_scene="uid://cditvy3j6e17w"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[display]
+
+window/size/viewport_width=800
+window/size/viewport_height=400
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/editor_notes/plugin.cfg", "res://addons/sticky_scribe/plugin.cfg")

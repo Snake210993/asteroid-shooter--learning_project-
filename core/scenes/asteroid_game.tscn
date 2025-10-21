@@ -7,6 +7,7 @@
 script = ExtResource("1_nq0rc")
 
 [node name="Game_Camera" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+anchor_mode = 0
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_ku4n5")]
+position = Vector2(331, 158)

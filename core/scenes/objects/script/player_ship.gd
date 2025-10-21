@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var ship: CharacterBody2D = $Ship
 @onready var health: Node2D = $Ship/Health
-
+@onready var screen_wrap: Node2D = $Ship/Screen_Wrap
 @export var speed := 200
 @export var turn_speed := 3.0
 
@@ -48,6 +48,9 @@ func _movement_logik(delta) -> void:
 		ship.velocity = ship.velocity.lerp(Vector2.ZERO, clamp(BREAKING_POWER * delta, 0.0, 1.0))
 	
 	ship.move_and_slide() ## move and slide needs to be after any changed are made to velocity
-
+	screen_wrap.screen_wrap()
+	
 func _on_health_zero_health_reached() -> void:
 	queue_free()
+	
+	
