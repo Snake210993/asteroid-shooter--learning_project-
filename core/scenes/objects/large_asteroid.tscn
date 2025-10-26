@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://xltolg1dl338"]
+
+[ext_resource type="Script" uid="uid://d0fapxji327np" path="res://core/scenes/objects/script/asteroid.gd" id="1_qgbst"]
+[ext_resource type="Texture2D" uid="uid://cpjra7xgj1427" path="res://core/resources/asteroid_1.tres" id="2_ywh1g"]
+[ext_resource type="PackedScene" uid="uid://d12dcf3qc13ai" path="res://reusable/components/health.tscn" id="3_3ljap"]
+[ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://reusable/components/screen_wrap.tscn" id="4_u7o8a"]
+
+[node name="asteroid_body (RigidBody2D)" type="RigidBody2D" groups=["Asteroid_Group"]]
+collision_layer = 4
+collision_mask = 7
+mass = 50.0
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 10
+linear_damp_mode = 1
+constant_torque = 500.0
+script = ExtResource("1_qgbst")
+
+[node name="asteroid_texture" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_ywh1g")
+
+[node name="asteroid_collision" type="CollisionPolygon2D" parent="."]
+position = Vector2(-4.419642, 0.2887926)
+polygon = PackedVector2Array(2, 15, 13, 10, 17, 1, 14, -4, 7, -10, 4, -13, -1, -14, -5, -11, -7, -8, -9, -5, -11, 2, -8, 7)
+
+[node name="Health" parent="." instance=ExtResource("3_3ljap")]
+
+[node name="Screen_Wrap" parent="." instance=ExtResource("4_u7o8a")]
+
+[connection signal="body_entered" from="." to="." method="_on_collision"]
+[connection signal="zero_health_reached" from="Health" to="." method="_on_health_zero_health_reached"]

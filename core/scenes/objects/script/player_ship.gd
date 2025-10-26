@@ -10,9 +10,13 @@ const TURN_LEFT = -1.0
 const TURN_RIGHT = 1.0
 const BREAKING_POWER := 2.0
 
+const PROJECTILE = preload("res://reusable/components/projectile.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	var screen_size = get_viewport().size
+	position.x = screen_size.x / 2
+	position.y = screen_size.y / 2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -21,7 +25,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Fire"): _fire_projectile()
 
 func _fire_projectile() -> void:
-	var PROJECTILE = load("res://reusable/components/projectile.tscn")
+	
 	var projectile = PROJECTILE.instantiate()
 
 	add_child(projectile)

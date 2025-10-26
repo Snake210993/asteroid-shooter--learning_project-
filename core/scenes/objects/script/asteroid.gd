@@ -1,17 +1,35 @@
 extends RigidBody2D
 
 @onready var screen_wrap: Node2D = $Screen_Wrap
+@onready var screen_size = get_viewport().size
 
-var thrust = Vector2(45, 45)
-var torque = 20
+var has_entered_viewport: bool = false
+
+var thrust : Vector2
+var torque : float
 var damage = 50
 
+func _process(_delta: float) -> void:
+	# Check if the asteroid is inside the visible screen
+	var is_inside_viewport: bool = (
+	global_position.x >= 0 
+	and global_position.x <= screen_size.x
+	and global_position.y >= 0
+	and global_position.y <= screen_size.y
+	)
+	# If it enters the viewport for the first time, record that state
+	if is_inside_viewport and (has_entered_viewport == false):
+		has_entered_viewport = true
+
+
 func _ready() -> void:
-	
+	screen_wrap.IS_SCREEN_WRAPPING = false
 	linear_velocity = thrust
 	constant_torque = torque
 
 func _physics_process(_delta: float) -> void:
+	if (has_entered_viewport):
+		screen_wrap.IS_SCREEN_WRAPPING = true
 	screen_wrap.screen_wrap()
 
 func _on_collision(body: Node) -> void:
