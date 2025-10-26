@@ -10,9 +10,11 @@ size = Vector2(6, 13.5)
 
 [node name="PlayerShip" type="Node2D"]
 texture_filter = 1
+scale = Vector2(2, 2)
 script = ExtResource("1_glpa6")
 
 [node name="Ship" type="CharacterBody2D" parent="."]
+collision_mask = 4
 motion_mode = 1
 
 [node name="Ship_Collision" type="CollisionShape2D" parent="Ship"]
@@ -25,3 +27,5 @@ texture = ExtResource("1_qhiiv")
 [node name="Health" parent="Ship" instance=ExtResource("3_4n1ev")]
 
 [node name="Screen_Wrap" parent="Ship" instance=ExtResource("4_xcgsg")]
+
+[connection signal="zero_health_reached" from="Ship/Health" to="." method="_on_health_zero_health_reached"]

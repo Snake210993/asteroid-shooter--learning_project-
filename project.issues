@@ -19,28 +19,28 @@
 				"tags": [],
 				"timestamp": 1761071711.0,
 				"priority": 1.0,
-				"estimate": 1
+				"estimate": 1.0
 			},
 			{
 				"text": "UI: Lives, Score, Pause Menu, Start Menu, Options",
 				"tags": [],
 				"timestamp": 1761071740.495,
 				"priority": 1.0,
-				"estimate": 7
+				"estimate": 7.0
 			},
 			{
 				"text": "Optionsmenu: toggle fullscreen, sound settings, keybindings",
 				"tags": [],
 				"timestamp": 1761071777.635,
 				"priority": 1.0,
-				"estimate": 7
+				"estimate": 7.0
 			},
 			{
 				"text": "savegame - let people save the score and save the highscores between sessions",
 				"tags": [],
 				"timestamp": 1761071818.547,
 				"priority": 0.0,
-				"estimate": 7
+				"estimate": 7.0
 			}
 		]
 	}

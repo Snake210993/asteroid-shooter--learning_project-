@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://crw38q6fq4nbv"]
+
+[ext_resource type="Texture2D" uid="uid://bprsd27g4rgwl" path="res://assets/Shooter_Sprite_Sheet.png" id="1_oiotl"]
+
+[resource]
+atlas = ExtResource("1_oiotl")
+region = Rect2(24, 19, 3, 3)

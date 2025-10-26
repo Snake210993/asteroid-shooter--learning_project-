@@ -9,6 +9,7 @@ size = Vector2(1, 1)
 
 [node name="Projectile" type="Node2D"]
 texture_filter = 1
+scale = Vector2(2, 2)
 script = ExtResource("1_eusr3")
 
 [node name="Screen_Wrap" parent="." instance=ExtResource("3_y2sfx")]
@@ -17,13 +18,23 @@ script = ExtResource("1_eusr3")
 texture = ExtResource("2_eusr3")
 
 [node name="Projectile_Area" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+input_pickable = false
 
 [node name="Projectile_Collision" type="CollisionShape2D" parent="Projectile_Area"]
 shape = SubResource("RectangleShape2D_eusr3")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 one_shot = true
 autostart = true
 
+[node name="Self_Damage" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="Projectile_Area" to="." method="_on_projectile_area_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Self_Damage" to="." method="_on_self_damage_timeout"]

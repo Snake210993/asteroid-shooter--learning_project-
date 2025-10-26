@@ -27,6 +27,7 @@ func _fire_projectile() -> void:
 	add_child(projectile)
 	projectile.shoot(ship.position, Vector2.UP.rotated(ship.rotation))
 	
+	
 
 func _movement_logik(delta) -> void:
 	
@@ -52,5 +53,7 @@ func _movement_logik(delta) -> void:
 	
 func _on_health_zero_health_reached() -> void:
 	queue_free()
+	print("You Died")
 	
-	
+func take_damage(received_damage) -> void:
+	health.take_damage(received_damage)

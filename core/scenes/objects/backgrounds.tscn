@@ -1,0 +1,214 @@
+[gd_scene load_steps=4 format=3 uid="uid://fag5tvd6kby0"]
+
+[ext_resource type="Texture2D" uid="uid://cdo8facdjmpgl" path="res://core/resources/stars_1.tres" id="1_37hwt"]
+[ext_resource type="Texture2D" uid="uid://bc4mqr2qhtfop" path="res://core/resources/stars_big.tres" id="2_6pech"]
+[ext_resource type="Texture2D" uid="uid://crw38q6fq4nbv" path="res://core/resources/star_small.tres" id="3_ahuc7"]
+
+[node name="Backgrounds" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(800, 400)
+offset_right = 800.0
+offset_bottom = 400.0
+color = Color(0, 0, 0, 1)
+
+[node name="Stars1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(88, 169)
+scale = Vector2(2, 2)
+texture = ExtResource("1_37hwt")
+
+[node name="Stars4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(57.000015, 172)
+rotation = -0.92327917
+scale = Vector2(2, 2)
+texture = ExtResource("1_37hwt")
+
+[node name="Stars2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(534, 69)
+rotation = 1.3177236
+scale = Vector2(2, 2)
+texture = ExtResource("1_37hwt")
+
+[node name="Stars5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(731, 358)
+rotation = -0.6894051
+scale = Vector2(2, 2)
+texture = ExtResource("1_37hwt")
+
+[node name="Stars3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(674, 294)
+rotation = 3.1415927
+scale = Vector2(2, 2)
+texture = ExtResource("1_37hwt")
+
+[node name="Stars6" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(795, 36)
+rotation = 3.1415927
+scale = Vector2(2, 2)
+texture = ExtResource("1_37hwt")
+
+[node name="Stars7" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(778, 75)
+rotation = 1.9285889
+scale = Vector2(2, 2)
+texture = ExtResource("1_37hwt")
+
+[node name="StarsBig" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(51, 52)
+rotation = 2.581342
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(108, 90)
+rotation = -0.80110615
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(76, 279)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig13" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(44, 370)
+rotation = -0.92327917
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig10" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(76, 198)
+rotation = 0.92327917
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(247, 250)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(496, 228)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig15" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(709, 379)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig12" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(451, 165)
+rotation = 0.5497787
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig9" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(190, 48)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig7" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(649, 302)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig8" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(667, 261)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig6" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(387, 297)
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig11" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(351.99997, 322.99997)
+rotation = 1.3962634
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarsBig14" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(272, 378)
+rotation = 0.44505897
+scale = Vector2(2, 2)
+texture = ExtResource("2_6pech")
+
+[node name="StarSmall" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(327, 104)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
+
+[node name="StarSmall2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(246, 127)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
+
+[node name="StarSmall3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(203, 317)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
+
+[node name="StarSmall7" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(142.99998, 360)
+rotation = -0.8290314
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
+
+[node name="StarSmall8" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(336, 216)
+rotation = -0.8290314
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
+
+[node name="StarSmall4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(544, 348)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
+
+[node name="StarSmall9" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(744, 345)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
+
+[node name="StarSmall5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(685, 125)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
+
+[node name="StarSmall6" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(403, 35)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ahuc7")
