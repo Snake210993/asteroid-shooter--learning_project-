@@ -1,7 +1,15 @@
 extends RigidBody2D
 
+class_name asteroid
+
 @onready var screen_wrap: Node2D = $Screen_Wrap
 @onready var screen_size = get_viewport().size
+
+const MAX_FRACTURE_AMOUNT = 3
+
+signal has_fractured_spawn_small_asteroids
+
+var fracture_amount
 
 var has_entered_viewport: bool = false
 
@@ -26,6 +34,7 @@ func _ready() -> void:
 	screen_wrap.IS_SCREEN_WRAPPING = false
 	linear_velocity = thrust
 	constant_torque = torque
+	fracture_amount = randi_range(0, MAX_FRACTURE_AMOUNT)
 
 func _physics_process(_delta: float) -> void:
 	if (has_entered_viewport):
@@ -39,5 +48,7 @@ func _on_collision(body: Node) -> void:
 		
 
 func _on_health_zero_health_reached() -> void:
+	has_fractured_spawn_small_asteroids.emit(fracture_amount)
+	print("received 30 points - connect points to counter")
+	print("large asteroid died - replace with sound")
 	queue_free()
-	print("asteroid died")

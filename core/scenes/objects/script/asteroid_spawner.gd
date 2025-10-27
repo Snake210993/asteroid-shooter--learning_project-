@@ -29,6 +29,7 @@ var asteroids: Array[Node]
 var is_spawning_enabled : bool = false
 
 
+
 func _ready() -> void:
 	left_spawning_rectangle = Rect2i(-100, 0, 100, screen_size.y)
 	rectangle_array.push_back(left_spawning_rectangle)
@@ -38,7 +39,6 @@ func _ready() -> void:
 	rectangle_array.push_back(bottom_spawning_rectangle)
 	top_spawning_rectangle = Rect2i(0, 0, screen_size.x, -100)
 	rectangle_array.push_back(top_spawning_rectangle)
-	
 	
 
 func _on_asteroid_spawn_timer_timeout() -> void:
@@ -81,5 +81,10 @@ func _spawn_random_asteroid() -> void:
 	var added_thrust_vector = Vector2(added_thrust,added_thrust)
 	new_asteroid.thrust = new_thrust_vector.normalized() * added_thrust_vector
 	new_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
+	new_asteroid.has_fractured_spawn_small_asteroids.connect(Callable(self, "_has_fractured_spawn_small_asteroids"))
 	add_child(new_asteroid)
+	
 	asteroids.push_back(new_asteroid)
+	
+func _has_fractured_spawn_small_asteroids(amount) -> void:
+	print("spawning " + str(amount) + " small asteroids")

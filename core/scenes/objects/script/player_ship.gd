@@ -22,12 +22,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	
 	_movement_logik(delta)
+	##add sounds
 	if Input.is_action_just_pressed("Fire"): _fire_projectile()
 
 func _fire_projectile() -> void:
 	
 	var projectile = PROJECTILE.instantiate()
-
+	##add sound
 	add_child(projectile)
 	projectile.shoot(ship.position, Vector2.UP.rotated(ship.rotation))
 	

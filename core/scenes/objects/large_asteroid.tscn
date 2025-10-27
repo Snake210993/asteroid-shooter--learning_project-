@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://xltolg1dl338"]
+[gd_scene load_steps=5 format=3 uid="uid://ddcc5xru37pxh"]
 
 [ext_resource type="Script" uid="uid://d0fapxji327np" path="res://core/scenes/objects/script/asteroid.gd" id="1_qgbst"]
 [ext_resource type="Texture2D" uid="uid://cpjra7xgj1427" path="res://core/resources/asteroid_1.tres" id="2_ywh1g"]
