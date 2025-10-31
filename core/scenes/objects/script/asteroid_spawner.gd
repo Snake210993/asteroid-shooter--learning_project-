@@ -9,13 +9,18 @@ const ASTEROID_SMALL = preload("res://core/scenes/objects/small_asteroid.tscn")
 
 
 const MAX_TORQUE : int = 100
-const MIN_TORQUE : int = 20
+const MIN_TORQUE : int = -100
 
 const MAX_THRUST : int = 50
 const MIN_THRUST : int = 20
 
+const MAX_DEVIATION : int = 100
+const MIN_DEVIATION : int = -100
+
+const MAX_ROTATION : int = 360
+
 const ASTEROID_STARTING_AMOUNT : int = 6
-const MAXIMUM_ASTEROID_COUNT : int = 10
+const MAXIMUM_ASTEROID_COUNT : int = 7
 
 var left_spawning_rectangle : Rect2i
 var right_spawning_rectangle : Rect2i
@@ -24,7 +29,7 @@ var bottom_spawning_rectangle : Rect2i
 
 var rectangle_array : Array[Rect2i]
 
-var asteroids: Array[Node]
+
 
 var is_spawning_enabled : bool = false
 
@@ -45,12 +50,12 @@ func _on_asteroid_spawn_timer_timeout() -> void:
 	_spawn_random_asteroid()
 
 func _process(_delta: float) -> void:
-	var current_asteroid_count: int = asteroids.size()
+	var current_asteroid_count: int = asteroid_collection.asteroids.size()
 	
 	if current_asteroid_count < ASTEROID_STARTING_AMOUNT and is_spawning_enabled == false:
 		asteroid_spawn_timer.start()
 		is_spawning_enabled = true
-	if asteroids.size() > MAXIMUM_ASTEROID_COUNT and is_spawning_enabled == true:
+	if asteroid_collection.asteroids.size() > MAXIMUM_ASTEROID_COUNT and is_spawning_enabled == true:
 		asteroid_spawn_timer.stop()
 		is_spawning_enabled = false
 
@@ -84,7 +89,20 @@ func _spawn_random_asteroid() -> void:
 	new_asteroid.has_fractured_spawn_small_asteroids.connect(Callable(self, "_has_fractured_spawn_small_asteroids"))
 	add_child(new_asteroid)
 	
-	asteroids.push_back(new_asteroid)
+	asteroid_collection.asteroids.push_back(new_asteroid)
 	
-func _has_fractured_spawn_small_asteroids(amount) -> void:
-	print("spawning " + str(amount) + " small asteroids")
+func _spawn_small_asteroid(position, velocity):
+		var new_small_asteroid = ASTEROID_SMALL.instantiate()
+		new_small_asteroid.position = position
+		var deviation = randi_range(MIN_DEVIATION, MAX_DEVIATION)
+		var deviation_vector = Vector2(deviation,deviation)
+		new_small_asteroid.thrust = velocity + deviation_vector
+		new_small_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
+		new_small_asteroid.rotation = randi_range(0, MAX_ROTATION)
+		add_child(new_small_asteroid)
+		asteroid_collection.asteroids.push_back(new_small_asteroid)
+	
+func _has_fractured_spawn_small_asteroids(amount, position, velocity) -> void:
+
+	for n in amount:
+		_spawn_small_asteroid(position, velocity)

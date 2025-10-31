@@ -17,6 +17,7 @@ var thrust : Vector2
 var torque : float
 var damage = 50
 
+
 func _process(_delta: float) -> void:
 	# Check if the asteroid is inside the visible screen
 	var is_inside_viewport: bool = (
@@ -33,7 +34,7 @@ func _process(_delta: float) -> void:
 func _ready() -> void:
 	screen_wrap.IS_SCREEN_WRAPPING = false
 	linear_velocity = thrust
-	constant_torque = torque
+	add_constant_torque(torque)
 	fracture_amount = randi_range(0, MAX_FRACTURE_AMOUNT)
 
 func _physics_process(_delta: float) -> void:
@@ -48,7 +49,8 @@ func _on_collision(body: Node) -> void:
 		
 
 func _on_health_zero_health_reached() -> void:
-	has_fractured_spawn_small_asteroids.emit(fracture_amount)
-	print("received 30 points - connect points to counter")
+	has_fractured_spawn_small_asteroids.emit(fracture_amount, global_position, linear_velocity)
+	asteroid_collection.asteroids.erase(self)
+	asteroid_collection.points += 40
 	print("large asteroid died - replace with sound")
 	queue_free()

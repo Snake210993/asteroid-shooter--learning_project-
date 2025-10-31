@@ -29,5 +29,7 @@ polygon = PackedVector2Array(2, 15, 13, 10, 17, 1, 14, -4, 7, -10, 4, -13, -1, -
 
 [node name="Screen_Wrap" parent="." instance=ExtResource("4_u7o8a")]
 
+[node name="death_audio" type="AudioStreamPlayer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_collision"]
 [connection signal="zero_health_reached" from="Health" to="." method="_on_health_zero_health_reached"]

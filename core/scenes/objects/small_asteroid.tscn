@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://d1vunqw2n0l7q" path="res://core/scenes/objects/script/small_asteroid.gd" id="2_m0bor"]
 
 [node name="asteroid_body (RigidBody2D)" instance=ExtResource("1_y5q2l")]
+collision_mask = 3
 script = ExtResource("2_m0bor")
 
 [node name="asteroid_texture" parent="." index="0"]
@@ -12,3 +13,13 @@ texture = ExtResource("2_k1hcg")
 
 [node name="asteroid_collision" parent="." index="1"]
 polygon = PackedVector2Array(5.419642, 9.711207, 10.4196415, 4.7112074, 14, -4, 7, -10, 0.41964197, -7.2887926, -4.580358, -4.2887926, -1.580358, 1.7112074, 0.41964197, 5.7112074)
+
+[node name="Health" parent="." index="2"]
+health = 50.0
+
+[node name="Spawn_Invincibility_to_other_asteroids" type="Timer" parent="." index="4"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Spawn_Invincibility_to_other_asteroids" to="." method="_on_spawn_invincibility_to_other_asteroids_timeout"]

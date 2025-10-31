@@ -14,6 +14,10 @@ config/name="Asteroid Shooter"
 run/main_scene="uid://cditvy3j6e17w"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[autoload]
+
+asteroid_collection="*res://core/globals/asteroid_collection.gd"
+
 [display]
 
 window/size/viewport_width=800
