@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cditvy3j6e17w"]
+[gd_scene load_steps=8 format=3 uid="uid://cditvy3j6e17w"]
 
+[ext_resource type="Script" uid="uid://cbq35v6o2m5t0" path="res://core/scenes/objects/script/asteroid_game.gd" id="1_54m02"]
 [ext_resource type="PackedScene" uid="uid://327vdnnkmu8k" path="res://core/scenes/objects/Player_Ship.tscn" id="1_ku4n5"]
 [ext_resource type="PackedScene" uid="uid://fag5tvd6kby0" path="res://core/scenes/objects/backgrounds.tscn" id="3_2ynv3"]
 [ext_resource type="PackedScene" uid="uid://dvsi1by21rlc8" path="res://core/scenes/objects/asteroid_spawner.tscn" id="3_hi4l2"]
+[ext_resource type="PackedScene" uid="uid://cedkwsnoihlox" path="res://core/UI/ui_game.tscn" id="4_hi4l2"]
+[ext_resource type="PackedScene" uid="uid://d0giwlrmexom7" path="res://core/UI/ui_respawn_window.tscn" id="5_mo2gp"]
+[ext_resource type="PackedScene" uid="uid://vj3q43cry6oj" path="res://core/UI/game_over.tscn" id="7_k0mlk"]
 
 [node name="Asteroid_Root_Node" type="Node"]
+script = ExtResource("1_54m02")
 
 [node name="Backgrounds" parent="." instance=ExtResource("3_2ynv3")]
 
@@ -15,3 +20,13 @@ anchor_mode = 0
 position = Vector2(331, 158)
 
 [node name="Asteroid_Spawner" parent="." instance=ExtResource("3_hi4l2")]
+
+[node name="UI_Root" parent="." instance=ExtResource("4_hi4l2")]
+
+[node name="respawn_panel" parent="UI_Root" instance=ExtResource("5_mo2gp")]
+visible = false
+layout_mode = 1
+
+[node name="game_over" parent="UI_Root" instance=ExtResource("7_k0mlk")]
+visible = false
+layout_mode = 1

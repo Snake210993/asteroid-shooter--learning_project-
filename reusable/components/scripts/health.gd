@@ -4,6 +4,7 @@ extends Node2D
 
 ##max health
 @export var health : float = 100
+@export var max_health : float = 100
 
 signal zero_health_reached
 
@@ -18,3 +19,6 @@ func zero_health():
 
 func _process(_delta: float) -> void:
 	if health <= 0 : zero_health()
+
+func _reset_health() -> void:
+	health = max_health

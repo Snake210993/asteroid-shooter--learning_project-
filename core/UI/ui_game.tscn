@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://cedkwsnoihlox"]
+
+[ext_resource type="Theme" uid="uid://bvudsuymnp2kj" path="res://core/resources/theme/asteroid_theme.tres" id="1_0tvuh"]
+[ext_resource type="Texture2D" uid="uid://00de88v5bysp" path="res://core/resources/textures/lives_texture.tres" id="1_pb7ki"]
+[ext_resource type="Script" uid="uid://cwbjdrx3l5hnb" path="res://core/UI/scripts/ui_game.gd" id="1_svn4h"]
+
+[node name="UI_Root" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_0tvuh")
+script = ExtResource("1_svn4h")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Lives_Container" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Life" type="TextureRect" parent="MarginContainer/Lives_Container"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_pb7ki")
+
+[node name="Life2" type="TextureRect" parent="MarginContainer/Lives_Container"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_pb7ki")
+
+[node name="Life3" type="TextureRect" parent="MarginContainer/Lives_Container"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_pb7ki")
+
+[node name="Score_Container" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Score" type="Label" parent="MarginContainer/Score_Container"]
+layout_mode = 2
+text = "Score:"
+
+[node name="Value" type="Label" parent="MarginContainer/Score_Container"]
+layout_mode = 2
+text = "000"

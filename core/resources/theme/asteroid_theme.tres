@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bvudsuymnp2kj"]
+
+[ext_resource type="FontFile" uid="uid://c0fd8188aiwd4" path="res://assets/Font/elv-pixels-11.otf" id="1_uys0y"]
+
+[resource]
+default_font = ExtResource("1_uys0y")

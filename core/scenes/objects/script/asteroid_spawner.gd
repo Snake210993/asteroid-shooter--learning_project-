@@ -1,26 +1,25 @@
 extends Node
 
 @onready var screen_size = get_viewport().size
-@onready var player_ship: Node2D = $"../PlayerShip"
 @onready var asteroid_spawn_timer: Timer = $asteroid_spawn_timer
 
 const ASTEROID_LARGE = preload("res://core/scenes/objects/large_asteroid.tscn")
 const ASTEROID_SMALL = preload("res://core/scenes/objects/small_asteroid.tscn")
 
 
-const MAX_TORQUE : int = 100
-const MIN_TORQUE : int = -100
+const MAX_TORQUE : int = 3000
+const MIN_TORQUE : int = -3000
 
 const MAX_THRUST : int = 50
 const MIN_THRUST : int = 20
 
-const MAX_DEVIATION : int = 100
-const MIN_DEVIATION : int = -100
+const MAX_DEVIATION : int = 70
+const MIN_DEVIATION : int = -70
 
 const MAX_ROTATION : int = 360
 
 const ASTEROID_STARTING_AMOUNT : int = 6
-const MAXIMUM_ASTEROID_COUNT : int = 7
+const MAXIMUM_ASTEROID_COUNT : int = 15
 
 var left_spawning_rectangle : Rect2i
 var right_spawning_rectangle : Rect2i
@@ -50,12 +49,12 @@ func _on_asteroid_spawn_timer_timeout() -> void:
 	_spawn_random_asteroid()
 
 func _process(_delta: float) -> void:
-	var current_asteroid_count: int = asteroid_collection.asteroids.size()
+	var current_asteroid_count: int = GLOBAL_DATA.asteroids.size()
 	
 	if current_asteroid_count < ASTEROID_STARTING_AMOUNT and is_spawning_enabled == false:
 		asteroid_spawn_timer.start()
 		is_spawning_enabled = true
-	if asteroid_collection.asteroids.size() > MAXIMUM_ASTEROID_COUNT and is_spawning_enabled == true:
+	if GLOBAL_DATA.asteroids.size() > MAXIMUM_ASTEROID_COUNT and is_spawning_enabled == true:
 		asteroid_spawn_timer.stop()
 		is_spawning_enabled = false
 
@@ -80,16 +79,18 @@ func _spawn_random_asteroid() -> void:
 	
 	
 	new_asteroid.position = Vector2(pos_x,pos_y)
-	var new_thrust_vector = player_ship.position - new_asteroid.position
+	var calculated_target_position = Vector2(screen_size.x/2, randi_range(100, screen_size.y - 100))
+	var new_thrust_vector = calculated_target_position - new_asteroid.position
 	## modulate new_thrust_vector that asteroids not always fly straight at the player
 	var added_thrust = randi_range(MIN_THRUST, MAX_THRUST)
 	var added_thrust_vector = Vector2(added_thrust,added_thrust)
 	new_asteroid.thrust = new_thrust_vector.normalized() * added_thrust_vector
 	new_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
+	new_asteroid.rotation = randi_range(0, MAX_ROTATION)
 	new_asteroid.has_fractured_spawn_small_asteroids.connect(Callable(self, "_has_fractured_spawn_small_asteroids"))
 	add_child(new_asteroid)
 	
-	asteroid_collection.asteroids.push_back(new_asteroid)
+	GLOBAL_DATA.asteroids.push_back(new_asteroid)
 	
 func _spawn_small_asteroid(position, velocity):
 		var new_small_asteroid = ASTEROID_SMALL.instantiate()
@@ -100,7 +101,7 @@ func _spawn_small_asteroid(position, velocity):
 		new_small_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
 		new_small_asteroid.rotation = randi_range(0, MAX_ROTATION)
 		add_child(new_small_asteroid)
-		asteroid_collection.asteroids.push_back(new_small_asteroid)
+		GLOBAL_DATA.asteroids.push_back(new_small_asteroid)
 	
 func _has_fractured_spawn_small_asteroids(amount, position, velocity) -> void:
 

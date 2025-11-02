@@ -12,11 +12,14 @@ const BREAKING_POWER := 2.0
 
 const PROJECTILE = preload("res://reusable/components/projectile.tscn")
 
+signal player_died
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var screen_size = get_viewport().size
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -57,8 +60,16 @@ func _movement_logik(delta) -> void:
 	screen_wrap.screen_wrap()
 	
 func _on_health_zero_health_reached() -> void:
-	queue_free()
-	print("You Died")
-	
+	visible = false
+	emit_signal("player_died")
+
 func take_damage(received_damage) -> void:
 	health.take_damage(received_damage)
+	
+func respawn() -> void:
+	health._reset_health()
+	ship.velocity = Vector2.ZERO
+	ship.rotation = 0.0
+	var screen_size = get_viewport().size
+	ship.position = Vector2(screen_size.x * 0.5, screen_size.y * 0.5)
+	visible = true
