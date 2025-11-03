@@ -4,3 +4,5 @@
 
 [resource]
 default_font = ExtResource("1_uys0y")
+Label/font_sizes/font_size = 23
+Label/fonts/font = ExtResource("1_uys0y")

@@ -11,7 +11,7 @@ extends Control
 func _ready() -> void:
 	update_score(GLOBAL_DATA.points)
 	update_lives(3)
-	respawn_panel.visible = false
+	hide_respawn_panel()
 
 func update_score(points: int) -> void:
 	score_value.text = str(points)

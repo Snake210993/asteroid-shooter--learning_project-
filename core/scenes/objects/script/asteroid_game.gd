@@ -13,6 +13,10 @@ func _ready() -> void:
 	respawn_panel.connect("respawn", Callable(self, "_on_respawn_requested"))
 	respawn_panel.connect("button_no", Callable(self, "_on_end_requested"))
 	
+	
+	_update_ui()
+
+func _on_receive_points() -> void:
 	_update_ui()
 
 func _update_ui() -> void:
@@ -35,7 +39,8 @@ func _on_player_died() -> void:
 		_show_game_over()
 
 func _show_game_over() -> void:
-	game_over.visible = true
+	game_over.update_score()
+	game_over.show_game_over()
 
 func _on_respawn_requested() -> void:
 	if state != "WaitingForRespawn":

@@ -4,6 +4,7 @@ func _on_health_zero_health_reached() -> void:
 	GLOBAL_DATA.asteroids.erase(self)
 	queue_free()
 	GLOBAL_DATA.points += 20
+	receive_points.emit()
 	print("small asteroid died - replace with audio")
 
 func _ready() -> void:

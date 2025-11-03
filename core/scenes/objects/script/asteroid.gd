@@ -8,6 +8,7 @@ class_name asteroid
 const MAX_FRACTURE_AMOUNT = 3
 
 signal has_fractured_spawn_small_asteroids
+signal receive_points
 
 var fracture_amount
 
@@ -54,5 +55,6 @@ func _on_health_zero_health_reached() -> void:
 	has_fractured_spawn_small_asteroids.emit(fracture_amount, global_position, linear_velocity)
 	GLOBAL_DATA.asteroids.erase(self)
 	GLOBAL_DATA.points += 40
+	receive_points.emit()
 	print("large asteroid died - replace with sound")
 	queue_free()

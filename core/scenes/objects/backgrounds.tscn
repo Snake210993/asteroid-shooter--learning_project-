@@ -48,7 +48,7 @@ texture = ExtResource("1_37hwt")
 
 [node name="Stars6" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(795, 36)
+position = Vector2(740, 52)
 rotation = 3.1415927
 scale = Vector2(2, 2)
 texture = ExtResource("1_37hwt")

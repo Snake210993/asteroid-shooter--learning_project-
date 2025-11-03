@@ -32,6 +32,7 @@ size_flags_vertical = 0
 
 [node name="Life" type="TextureRect" parent="MarginContainer/Lives_Container"]
 texture_filter = 1
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -39,6 +40,7 @@ texture = ExtResource("1_pb7ki")
 
 [node name="Life2" type="TextureRect" parent="MarginContainer/Lives_Container"]
 texture_filter = 1
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -46,6 +48,7 @@ texture = ExtResource("1_pb7ki")
 
 [node name="Life3" type="TextureRect" parent="MarginContainer/Lives_Container"]
 texture_filter = 1
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0

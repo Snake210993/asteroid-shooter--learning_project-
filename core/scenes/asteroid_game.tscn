@@ -17,7 +17,7 @@ script = ExtResource("1_54m02")
 anchor_mode = 0
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_ku4n5")]
-position = Vector2(331, 158)
+position = Vector2(400, 200)
 
 [node name="Asteroid_Spawner" parent="." instance=ExtResource("3_hi4l2")]
 

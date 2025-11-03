@@ -6,6 +6,8 @@ extends Node
 const ASTEROID_LARGE = preload("res://core/scenes/objects/large_asteroid.tscn")
 const ASTEROID_SMALL = preload("res://core/scenes/objects/small_asteroid.tscn")
 
+@onready var asteroid_root_node: Node = $".."
+
 
 const MAX_TORQUE : int = 3000
 const MIN_TORQUE : int = -3000
@@ -88,6 +90,7 @@ func _spawn_random_asteroid() -> void:
 	new_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
 	new_asteroid.rotation = randi_range(0, MAX_ROTATION)
 	new_asteroid.has_fractured_spawn_small_asteroids.connect(Callable(self, "_has_fractured_spawn_small_asteroids"))
+	new_asteroid.receive_points.connect(Callable(asteroid_root_node, "_on_receive_points"))
 	add_child(new_asteroid)
 	
 	GLOBAL_DATA.asteroids.push_back(new_asteroid)
@@ -100,6 +103,7 @@ func _spawn_small_asteroid(position, velocity):
 		new_small_asteroid.thrust = velocity + deviation_vector
 		new_small_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
 		new_small_asteroid.rotation = randi_range(0, MAX_ROTATION)
+		new_small_asteroid.receive_points.connect(Callable(asteroid_root_node, "_on_receive_points"))
 		add_child(new_small_asteroid)
 		GLOBAL_DATA.asteroids.push_back(new_small_asteroid)
 	
