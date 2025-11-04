@@ -11,8 +11,8 @@ var state: String = "Alive"  # "Alive", "WaitingForRespawn", "GameOver"
 func _ready() -> void:
 	player_ship.connect("player_died", Callable(self, "_on_player_died"))
 	respawn_panel.connect("respawn", Callable(self, "_on_respawn_requested"))
-	respawn_panel.connect("button_no", Callable(self, "_on_end_requested"))
-	
+	respawn_panel.connect("back_to_menu", Callable(self, "_back_to_menu_requested"))
+	game_over.connect("back_to_menu", Callable(self, "_back_to_menu_requested"))
 	
 	_update_ui()
 
@@ -39,6 +39,7 @@ func _on_player_died() -> void:
 		_show_game_over()
 
 func _show_game_over() -> void:
+	ui.hide_game_ui()
 	game_over.update_score()
 	game_over.show_game_over()
 
@@ -49,3 +50,6 @@ func _on_respawn_requested() -> void:
 	#get_tree().paused = false
 	player_ship.respawn()
 	state = "Alive"
+
+func _back_to_menu_requested() -> void:
+	print("back to menu")

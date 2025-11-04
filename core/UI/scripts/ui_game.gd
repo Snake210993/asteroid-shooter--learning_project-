@@ -6,6 +6,7 @@ extends Control
 @onready var life_3: TextureRect = $MarginContainer/Lives_Container/Life3
 
 @onready var respawn_panel: Control = $respawn_panel
+@onready var margin_container: MarginContainer = $MarginContainer
 
 
 func _ready() -> void:
@@ -26,3 +27,8 @@ func show_respawn_panel() -> void:
 
 func hide_respawn_panel() -> void:
 	respawn_panel.visible = false
+
+func hide_game_ui() -> void:
+	margin_container.visible = false
+func show_game_ui() -> void:
+	margin_container.visible = true

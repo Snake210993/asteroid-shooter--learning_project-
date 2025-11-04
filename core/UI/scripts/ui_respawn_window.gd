@@ -1,6 +1,6 @@
 extends Control
 
-signal button_no
+signal back_to_menu
 signal respawn
 
 func _on_ui_root_enable_respawn() -> void:
@@ -12,4 +12,4 @@ func _on_yes_pressed() -> void:
 
 
 func _on_end_pressed() -> void:
-	emit_signal("button_no")
+	emit_signal("back_to_menu")
