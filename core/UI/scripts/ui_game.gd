@@ -32,3 +32,6 @@ func hide_game_ui() -> void:
 	margin_container.visible = false
 func show_game_ui() -> void:
 	margin_container.visible = true
+
+func reset_ui(remaining_lives : int) -> void:
+	update_lives(remaining_lives)

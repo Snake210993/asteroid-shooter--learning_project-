@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://5te2ljxfqqla"
+path="res://.godot/imported/Karl Casey - White Bat XXII - 01 Dead Or Alive.mp3-8b288d9b8adb840ead7a0f6881c8e3de.mp3str"
+
+[deps]
+
+source_file="res://assets/audio_files/music/Karl Casey - White Bat XXII - 01 Dead Or Alive.mp3"
+dest_files=["res://.godot/imported/Karl Casey - White Bat XXII - 01 Dead Or Alive.mp3-8b288d9b8adb840ead7a0f6881c8e3de.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://djm8l332fjllw"
+path="res://.godot/imported/Karl Casey - White Bat XXII - 06 Ad Infinitum.mp3-75a675da69e2e7129016a2b006a54094.mp3str"
+
+[deps]
+
+source_file="res://assets/audio_files/music/Karl Casey - White Bat XXII - 06 Ad Infinitum.mp3"
+dest_files=["res://.godot/imported/Karl Casey - White Bat XXII - 06 Ad Infinitum.mp3-75a675da69e2e7129016a2b006a54094.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b4f2yi74epjt1"
+path="res://.godot/imported/Impulse Emitter Single B.wav-8f12cb05ac9331c70a810c1af0c7d84d.sample"
+
+[deps]
+
+source_file="res://assets/audio_files/shots/Impulse Emitter Single B.wav"
+dest_files=["res://.godot/imported/Impulse Emitter Single B.wav-8f12cb05ac9331c70a810c1af0c7d84d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

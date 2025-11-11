@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://53fl4uulr8ic"
+path="res://.godot/imported/Karl Casey - White Bat XXII - 03 Klendathu Drop.mp3-44b0ebc365fc412af722e561b20701e3.mp3str"
+
+[deps]
+
+source_file="res://assets/audio_files/music/Karl Casey - White Bat XXII - 03 Klendathu Drop.mp3"
+dest_files=["res://.godot/imported/Karl Casey - White Bat XXII - 03 Klendathu Drop.mp3-44b0ebc365fc412af722e561b20701e3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

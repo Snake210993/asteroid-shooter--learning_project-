@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c2q2f165de4h8"
+path="res://.godot/imported/Karl Casey - White Bat XXII - 04 Vintage.mp3-ff1269d94ec1653986edcd9437af5a11.mp3str"
+
+[deps]
+
+source_file="res://assets/audio_files/music/Karl Casey - White Bat XXII - 04 Vintage.mp3"
+dest_files=["res://.godot/imported/Karl Casey - White Bat XXII - 04 Vintage.mp3-ff1269d94ec1653986edcd9437af5a11.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

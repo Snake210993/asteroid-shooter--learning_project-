@@ -26,7 +26,7 @@ input_pickable = false
 shape = SubResource("RectangleShape2D_eusr3")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.8
 one_shot = true
 autostart = true
 

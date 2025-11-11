@@ -5,6 +5,8 @@ class_name asteroid
 @onready var screen_wrap: Node2D = $Screen_Wrap
 @onready var screen_size = get_viewport().size
 
+var kill_score = 40
+
 const MAX_FRACTURE_AMOUNT = 3
 
 signal has_fractured_spawn_small_asteroids
@@ -16,7 +18,7 @@ var has_entered_viewport: bool = false
 
 var thrust : Vector2
 var torque : float
-var damage_to_player = 50
+var damage_to_player = 100
 var damage_to_asteroids = 10
 
 func _process(_delta: float) -> void:
@@ -54,7 +56,7 @@ func _on_collision(body: Node) -> void:
 func _on_health_zero_health_reached() -> void:
 	has_fractured_spawn_small_asteroids.emit(fracture_amount, global_position, linear_velocity)
 	GLOBAL_DATA.asteroids.erase(self)
-	GLOBAL_DATA.points += 40
+	GLOBAL_DATA.add_points(kill_score)
 	receive_points.emit()
 	print("large asteroid died - replace with sound")
 	queue_free()
