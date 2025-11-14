@@ -6,9 +6,22 @@ extends Node
 @onready var game_over: Control = $UI_Root/game_over
 @onready var main_menu: Control = $UI_Root/Main_Menu
 @onready var credits: Control = $UI_Root/Credits
+@onready var asteroid_spawner: Node2D = $Asteroid_Spawner
+
+
+const GAME_MUSIC = "game_music_playlist_key"
+
+const CREDITS_STATE = "credits"
+const MAIN_MENU_STATE = "main_menu"
+const HIGHSCORE_STATE = "highscore"
+const OPTIONS_STATE = "options"
 
 var remaining_lives: int = 3
 var state: String = "Alive"  # "Alive", "WaitingForRespawn", "GameOver"
+var current_menu: String = MAIN_MENU_STATE # "credits, "options", "highscore"
+
+signal clean_asteroids
+
 
 func _ready() -> void:
 	player_ship.connect("player_died", Callable(self, "_on_player_died"))
@@ -27,6 +40,8 @@ func _ready() -> void:
 	player_ship.toggle_visibility(false)
 	player_ship.set_controllable(false)
 	ui.hide_game_ui()
+	
+	AudioManager.play_radio_global(GAME_MUSIC, &"MUSIC")
 	
 	_update_ui()
 
@@ -84,6 +99,7 @@ func _start_game_requested() -> void:
 	player_ship.health._reset_health()
 	GLOBAL_DATA.reset_points()
 	ui.update_score(GLOBAL_DATA.points)
+	emit_signal("clean_asteroids")
 	state = "Alive"
 
 
@@ -94,15 +110,29 @@ func _highscore_requested() -> void:
 	print("highscore")
 
 func _exit_game_requested() -> void:
-	print("exit game requested")
-	
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST) #this should trigger saving and other quitting functionality
+	get_tree().quit()
 func _credits_requested() -> void:
 	main_menu.visible = false
 	credits.visible = true
+	current_menu = CREDITS_STATE
 	
 func _back_requested() -> void:
-	main_menu.visible = true
-	credits.visible = false
+	return_to_main(current_menu)
 	
-	##create place in UI - const strings -> as states
-	##rewrite function to use a match statement to apply correct code and make the back requested function usable for all cases
+func return_to_main(returning_from_menu) -> void:
+	match returning_from_menu:
+		CREDITS_STATE:
+			main_menu.visible = true
+			credits.visible = false
+			current_menu = MAIN_MENU_STATE
+		OPTIONS_STATE:
+			main_menu.visible = true
+			#hide options
+			current_menu = MAIN_MENU_STATE
+		HIGHSCORE_STATE:
+			main_menu.visible = true
+			#hide highscore
+			current_menu = MAIN_MENU_STATE
+		_:
+			print("no_state")

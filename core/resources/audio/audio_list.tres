@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dpagn2urqtwjq"]
+
+[ext_resource type="Script" uid="uid://0ot8hh8ruumo" path="res://core/resources/audio/scripts/audio_list.gd" id="1_n152a"]
+
+[resource]
+script = ExtResource("1_n152a")

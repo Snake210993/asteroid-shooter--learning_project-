@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://bvudsuymnp2kj" path="res://core/resources/theme/asteroid_theme.tres" id="1_wn8tq"]
 [ext_resource type="Script" uid="uid://gflvjwo2hpyp" path="res://core/UI/scripts/game_over.gd" id="2_wivmr"]
-[ext_resource type="PackedScene" uid="uid://dmuk0fyhkw4xd" path="res://reusable/ui_scenes/button_with_sound.tscn" id="3_7po1c"]
-[ext_resource type="AudioStream" uid="uid://dv7ihypmrhlpl" path="res://assets/audio_files/Signal Positive Bubble A.wav" id="4_objjq"]
-[ext_resource type="AudioStream" uid="uid://dokujvm725pfi" path="res://assets/audio_files/Signal Positive JRPG A.wav" id="5_uf3i1"]
+[ext_resource type="PackedScene" uid="uid://dmuk0fyhkw4xd" path="res://_reusable/ui_scenes/button_with_sound.tscn" id="3_7po1c"]
+[ext_resource type="AudioStream" uid="uid://dv7ihypmrhlpl" path="res://assets/audio_files/UI/Signal Positive Bubble A.wav" id="4_objjq"]
+[ext_resource type="AudioStream" uid="uid://dokujvm725pfi" path="res://assets/audio_files/UI/Signal Positive JRPG A.wav" id="5_uf3i1"]
 
 [node name="Game_Over" type="Control"]
 layout_mode = 3

@@ -1,43 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://327vdnnkmu8k"]
+[gd_scene load_steps=6 format=3 uid="uid://327vdnnkmu8k"]
 
 [ext_resource type="Script" uid="uid://bfpv4lkyvmn6r" path="res://core/scenes/objects/script/player_ship.gd" id="1_glpa6"]
 [ext_resource type="Texture2D" uid="uid://32y2xjtb346b" path="res://core/resources/textures/asteroid_shooter_ship.tres" id="1_qhiiv"]
-[ext_resource type="PackedScene" uid="uid://d12dcf3qc13ai" path="res://reusable/components/health.tscn" id="3_4n1ev"]
-[ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://reusable/components/screen_wrap.tscn" id="4_xcgsg"]
-[ext_resource type="AudioStream" uid="uid://b4f2yi74epjt1" path="res://assets/audio_files/shots/Impulse Emitter Single B.wav" id="5_c1xxj"]
+[ext_resource type="PackedScene" uid="uid://d12dcf3qc13ai" path="res://_reusable/components/health.tscn" id="3_4n1ev"]
+[ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://_reusable/components/screen_wrap.tscn" id="4_xcgsg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glpa6"]
 size = Vector2(6, 13.5)
 
 [node name="PlayerShip" type="Node2D" groups=["Player"]]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-visible = true
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-show_behind_parent = false
-top_level = false
-clip_children = 0
-light_mask = 1
-visibility_layer = 1
-z_index = 0
-z_as_relative = true
-y_sort_enabled = false
 texture_filter = 1
-texture_repeat = 0
-material = null
-use_parent_material = false
-position = Vector2(0, 0)
-rotation = 0.0
 scale = Vector2(2, 2)
-skew = 0.0
 script = ExtResource("1_glpa6")
 
 [node name="Ship" type="CharacterBody2D" parent="." groups=["Player"]]
@@ -52,67 +25,12 @@ texture_filter = 1
 texture = ExtResource("1_qhiiv")
 
 [node name="Health" parent="Ship" instance=ExtResource("3_4n1ev")]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-visible = true
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-show_behind_parent = false
-top_level = false
-clip_children = 0
-light_mask = 1
-visibility_layer = 1
-z_index = 0
-z_as_relative = true
-y_sort_enabled = false
-texture_filter = 0
-texture_repeat = 0
-material = null
-use_parent_material = false
-position = Vector2(0, 0)
-rotation = 0.0
-scale = Vector2(1, 1)
-skew = 0.0
 
 [node name="Screen_Wrap" parent="Ship" instance=ExtResource("4_xcgsg")]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-visible = true
-modulate = Color(1, 1, 1, 1)
-self_modulate = Color(1, 1, 1, 1)
-show_behind_parent = false
-top_level = false
-clip_children = 0
-light_mask = 1
-visibility_layer = 1
-z_index = 0
-z_as_relative = true
-y_sort_enabled = false
-texture_filter = 0
-texture_repeat = 0
-material = null
-use_parent_material = false
-position = Vector2(0, 0)
-rotation = 0.0
-scale = Vector2(1, 1)
-skew = 0.0
 
-[node name="shot_audio" type="AudioStreamPlayer" parent="Ship"]
-stream = ExtResource("5_c1xxj")
-bus = &"SFX"
+[node name="invincibility_frames" type="Timer" parent="Ship"]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="zero_health_reached" from="Ship/Health" to="." method="_on_health_zero_health_reached"]
+[connection signal="timeout" from="Ship/invincibility_frames" to="." method="_on_invincibility_frames_timeout"]

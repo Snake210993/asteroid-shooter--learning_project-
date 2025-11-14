@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=3 format=3 uid="uid://b2k4ytb17sj1e"]
+
+[ext_resource type="AudioStream" uid="uid://bp3he2qqgyajm" path="res://assets/audio_files/damage_sounds/asteroid_breaking_sound_1_small.wav" id="1_odyvm"]
+[ext_resource type="AudioStream" uid="uid://dncncgu38ka2b" path="res://assets/audio_files/damage_sounds/asteroid_breaking_sound_2_small.wav" id="2_2eq0d"]
+
+[resource]
+streams_count = 2
+stream_0/stream = ExtResource("1_odyvm")
+stream_1/stream = ExtResource("2_2eq0d")

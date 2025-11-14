@@ -1,17 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://dmuk0fyhkw4xd"]
 
-[ext_resource type="Script" uid="uid://yryjq088dlgv" path="res://reusable/ui_scenes/scripts/button_with_sound.gd" id="1_wtco2"]
+[ext_resource type="Script" uid="uid://yryjq088dlgv" path="res://_reusable/ui_scenes/scripts/button_with_sound.gd" id="1_wtco2"]
 
 [node name="button_with_sound" type="Button"]
 offset_right = 8.0
 offset_bottom = 8.0
 script = ExtResource("1_wtco2")
-
-[node name="clicked_sound" type="AudioStreamPlayer" parent="."]
-bus = &"UI"
-
-[node name="hovered_sound" type="AudioStreamPlayer" parent="."]
-bus = &"UI"
+is_using_hover_sound = true
+is_using_clicked_sound = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_hovered"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

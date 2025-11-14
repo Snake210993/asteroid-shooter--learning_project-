@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://bvudsuymnp2kj" path="res://core/resources/theme/asteroid_theme.tres" id="1_kred3"]
 [ext_resource type="Script" uid="uid://76ekjjkp63jp" path="res://core/UI/scripts/ui_respawn_window.gd" id="2_urxkm"]
-[ext_resource type="PackedScene" uid="uid://dmuk0fyhkw4xd" path="res://reusable/ui_scenes/button_with_sound.tscn" id="3_wrbvv"]
-[ext_resource type="AudioStream" uid="uid://dokujvm725pfi" path="res://assets/audio_files/Signal Positive JRPG A.wav" id="4_8apin"]
+[ext_resource type="PackedScene" uid="uid://dmuk0fyhkw4xd" path="res://_reusable/ui_scenes/button_with_sound.tscn" id="3_wrbvv"]
+[ext_resource type="AudioStream" uid="uid://dokujvm725pfi" path="res://assets/audio_files/UI/Signal Positive JRPG A.wav" id="4_8apin"]
 
 [node name="Respawn" type="Control"]
 layout_mode = 3

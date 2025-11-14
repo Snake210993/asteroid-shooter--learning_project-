@@ -21,7 +21,7 @@ const MIN_DEVIATION : int = -70
 const MAX_ROTATION : int = 360
 
 const ASTEROID_STARTING_AMOUNT : int = 6
-const MAXIMUM_ASTEROID_COUNT : int = 15
+const MAXIMUM_ASTEROID_COUNT : int = 50
 
 var left_spawning_rectangle : Rect2i
 var right_spawning_rectangle : Rect2i
@@ -93,7 +93,7 @@ func _spawn_random_asteroid() -> void:
 	new_asteroid.receive_points.connect(Callable(asteroid_root_node, "_on_receive_points"))
 	add_child(new_asteroid)
 	
-	GLOBAL_DATA.asteroids.push_back(new_asteroid)
+	GLOBAL_DATA.add_to_asteroids(new_asteroid)
 	
 func _spawn_small_asteroid(position, velocity):
 		var new_small_asteroid = ASTEROID_SMALL.instantiate()
@@ -105,9 +105,17 @@ func _spawn_small_asteroid(position, velocity):
 		new_small_asteroid.rotation = randi_range(0, MAX_ROTATION)
 		new_small_asteroid.receive_points.connect(Callable(asteroid_root_node, "_on_receive_points"))
 		add_child(new_small_asteroid)
-		GLOBAL_DATA.asteroids.push_back(new_small_asteroid)
+		GLOBAL_DATA.add_to_asteroids(new_small_asteroid)
 	
 func _has_fractured_spawn_small_asteroids(amount, position, velocity) -> void:
-
 	for n in amount:
 		_spawn_small_asteroid(position, velocity)
+
+func clean_asteroids() -> void:
+	for n in GLOBAL_DATA.asteroids:
+		n.queue_free()
+	GLOBAL_DATA.asteroids.clear()
+
+
+func _on_clean_asteroids() -> void:
+	clean_asteroids()

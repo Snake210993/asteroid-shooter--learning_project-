@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddcc5xru37pxh"]
+[gd_scene load_steps=6 format=3 uid="uid://ddcc5xru37pxh"]
 
 [ext_resource type="Script" uid="uid://d0fapxji327np" path="res://core/scenes/objects/script/asteroid.gd" id="1_qgbst"]
 [ext_resource type="Texture2D" uid="uid://cpjra7xgj1427" path="res://core/resources/textures/asteroid_1.tres" id="2_ywh1g"]
-[ext_resource type="PackedScene" uid="uid://d12dcf3qc13ai" path="res://reusable/components/health.tscn" id="3_3ljap"]
-[ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://reusable/components/screen_wrap.tscn" id="4_u7o8a"]
+[ext_resource type="PackedScene" uid="uid://d12dcf3qc13ai" path="res://_reusable/components/health.tscn" id="3_3ljap"]
+[ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://_reusable/components/screen_wrap.tscn" id="4_u7o8a"]
+[ext_resource type="AudioStream" uid="uid://buqy0m2hoh5uk" path="res://core/resources/audio/asteroid_breaking_large.tres" id="5_ywh1g"]
 
 [node name="asteroid_body (RigidBody2D)" type="RigidBody2D" groups=["Asteroid_Group"]]
 collision_layer = 4
@@ -29,6 +30,8 @@ polygon = PackedVector2Array(2, 15, 13, 10, 17, 1, 14, -4, 7, -10, 4, -13, -1, -
 [node name="Screen_Wrap" parent="." instance=ExtResource("4_u7o8a")]
 
 [node name="death_audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ywh1g")
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_collision"]
 [connection signal="zero_health_reached" from="Health" to="." method="_on_health_zero_health_reached"]

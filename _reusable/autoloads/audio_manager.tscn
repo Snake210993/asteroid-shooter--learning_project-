@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cworxxxh54e5p"]
+
+[ext_resource type="Script" uid="uid://omssgse8rs5d" path="res://_reusable/autoloads/scripts/audio_manager.gd" id="1_lt1oo"]
+[ext_resource type="Resource" uid="uid://dpagn2urqtwjq" path="res://core/resources/audio/audio_list.tres" id="2_mdfsy"]
+
+[node name="Audio_Manager" type="Node2D"]
+script = ExtResource("1_lt1oo")
+audio_list = ExtResource("2_mdfsy")
+
+[node name="radio_global" type="AudioStreamPlayer" parent="."]

@@ -3,7 +3,10 @@ extends Node2D
 @onready var ship: CharacterBody2D = $Ship
 @onready var health: Node2D = $Ship/Health
 @onready var screen_wrap: Node2D = $Ship/Screen_Wrap
-@onready var shot_audio: AudioStreamPlayer = $Ship/shot_audio
+@onready var invincibility_frames: Timer = $Ship/invincibility_frames
+
+const SHIP_SHOOTING_SFX = "ship_shooting_sfx"
+const SHIP_DEATH_SFX = "ship_death_explosion"
 
 @export var speed := 200
 @export var turn_speed := 3.0
@@ -12,7 +15,7 @@ const TURN_LEFT = -1.0
 const TURN_RIGHT = 1.0
 const BREAKING_POWER := 2.0
 
-const PROJECTILE = preload("res://reusable/components/projectile.tscn")
+const PROJECTILE = preload("res://_reusable/components/projectile.tscn")
 
 signal player_died
 
@@ -30,13 +33,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	
 	_movement_logik(delta)
-	##add sounds
+	
 	if Input.is_action_just_pressed("Fire"): _fire_projectile()
 
 func _fire_projectile() -> void:
 	
 	var projectile = PROJECTILE.instantiate()
-	shot_audio.play()
+	AudioManager.play_audio_stream(SHIP_SHOOTING_SFX, &"SFX")
 	add_child(projectile)
 	projectile.shoot(ship.position, Vector2.UP.rotated(ship.rotation))
 	
@@ -66,6 +69,7 @@ func _movement_logik(delta) -> void:
 	
 func _on_health_zero_health_reached() -> void:
 	toggle_visibility(false)
+	AudioManager.play_audio_stream(SHIP_DEATH_SFX, &"SFX")
 	emit_signal("player_died")
 
 func take_damage(received_damage) -> void:
@@ -79,6 +83,9 @@ func respawn() -> void:
 	ship.position = Vector2(screen_size.x * 0.5, screen_size.y * 0.5)
 	set_controllable(true)
 	toggle_visibility(true)
+	set_collision_enabled(false)
+	##enable invincible shader
+	invincibility_frames.start()
 	
 func toggle_visibility(new_visibility) -> void:
 	visible = new_visibility
@@ -93,3 +100,8 @@ func set_controllable(enable: bool) -> void:
 func set_collision_enabled(enable: bool) -> void:
 	ship.set_collision_layer_value(1, enable)
 	ship.set_collision_mask_value(3, enable)
+
+
+
+func _on_invincibility_frames_timeout() -> void:
+	set_collision_enabled(true)

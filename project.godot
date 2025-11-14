@@ -14,9 +14,14 @@ config/name="Asteroid Shooter"
 run/main_scene="uid://cditvy3j6e17w"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[audio]
+
+buses/default_bus_layout="uid://cocqfuy7hra24"
+
 [autoload]
 
 GLOBAL_DATA="*res://core/globals/global_asteroid_DATA.gd"
+AudioManager="*res://_reusable/autoloads/audio_manager.tscn"
 
 [display]
 

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dokujvm725pfi"
-path="res://.godot/imported/Signal Positive JRPG A.wav-ea388156a2d8cf338ab5b931484714ff.sample"
+path="res://.godot/imported/Signal Positive JRPG A.wav-2cb4731a2526e6008053f34567254841.sample"
 
 [deps]
 
-source_file="res://assets/audio_files/Signal Positive JRPG A.wav"
-dest_files=["res://.godot/imported/Signal Positive JRPG A.wav-ea388156a2d8cf338ab5b931484714ff.sample"]
+source_file="res://assets/audio_files/UI/Signal Positive JRPG A.wav"
+dest_files=["res://.godot/imported/Signal Positive JRPG A.wav-2cb4731a2526e6008053f34567254841.sample"]
 
 [params]
 

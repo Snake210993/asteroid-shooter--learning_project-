@@ -10,15 +10,13 @@ signal zero_health_reached
 
 func take_damage(damage: float):
 	health -= damage
+	if health <= 0 : zero_health()
 
 func heal_damage(healing: float):
 	health += healing
 	
 func zero_health():
 	emit_signal("zero_health_reached")
-
-func _process(_delta: float) -> void:
-	if health <= 0 : zero_health()
 
 func _reset_health() -> void:
 	health = max_health

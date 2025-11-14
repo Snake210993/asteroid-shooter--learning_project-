@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://mun431b1178s"]
 
-[ext_resource type="Script" uid="uid://cf76addaf6ht1" path="res://reusable/components/scripts/screen_wrap.gd" id="1_h3bv0"]
+[ext_resource type="Script" uid="uid://cf76addaf6ht1" path="res://_reusable/components/scripts/screen_wrap.gd" id="1_h3bv0"]
 
 [node name="Screen_Wrap" type="Node2D"]
 script = ExtResource("1_h3bv0")

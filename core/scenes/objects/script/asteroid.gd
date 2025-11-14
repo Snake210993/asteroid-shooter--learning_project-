@@ -4,6 +4,10 @@ class_name asteroid
 
 @onready var screen_wrap: Node2D = $Screen_Wrap
 @onready var screen_size = get_viewport().size
+@onready var death_audio: AudioStreamPlayer = $death_audio
+
+
+const ASTEROID_DEATH_AUDIO = "asteroid_breaking_large"
 
 var kill_score = 40
 
@@ -55,8 +59,8 @@ func _on_collision(body: Node) -> void:
 
 func _on_health_zero_health_reached() -> void:
 	has_fractured_spawn_small_asteroids.emit(fracture_amount, global_position, linear_velocity)
-	GLOBAL_DATA.asteroids.erase(self)
+	GLOBAL_DATA.remove_self_from_asteroids(self)
 	GLOBAL_DATA.add_points(kill_score)
 	receive_points.emit()
-	print("large asteroid died - replace with sound")
+	AudioManager.play_audio_stream(ASTEROID_DEATH_AUDIO, &"SFX")
 	queue_free()

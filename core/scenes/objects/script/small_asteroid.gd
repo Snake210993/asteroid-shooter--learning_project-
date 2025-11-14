@@ -1,12 +1,13 @@
 extends asteroid
 
+const DEATH_AUDIO_2 = "asteroid_breaking_small"
 
 func _on_health_zero_health_reached() -> void:
-	GLOBAL_DATA.asteroids.erase(self)
+	GLOBAL_DATA.remove_self_from_asteroids(self)
+	AudioManager.play_audio_stream(DEATH_AUDIO_2, &"SFX")
 	queue_free()
 	GLOBAL_DATA.add_points(kill_score)
 	receive_points.emit()
-	print("small asteroid died - replace with audio")
 
 func _ready() -> void:
 	super()
