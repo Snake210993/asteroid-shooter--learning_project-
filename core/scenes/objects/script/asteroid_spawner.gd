@@ -96,7 +96,7 @@ func _spawn_random_asteroid() -> void:
 	GLOBAL_DATA.add_to_asteroids(new_asteroid)
 	
 func _spawn_small_asteroid(position, velocity):
-		var new_small_asteroid = ASTEROID_SMALL.instantiate()
+		var new_small_asteroid := ASTEROID_SMALL.instantiate()
 		new_small_asteroid.position = position
 		var deviation = randi_range(MIN_DEVIATION, MAX_DEVIATION)
 		var deviation_vector = Vector2(deviation,deviation)
@@ -104,9 +104,9 @@ func _spawn_small_asteroid(position, velocity):
 		new_small_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
 		new_small_asteroid.rotation = randi_range(0, MAX_ROTATION)
 		new_small_asteroid.receive_points.connect(Callable(asteroid_root_node, "_on_receive_points"))
-		add_child(new_small_asteroid)
+		call_deferred("add_child", new_small_asteroid)
 		GLOBAL_DATA.add_to_asteroids(new_small_asteroid)
-	
+
 func _has_fractured_spawn_small_asteroids(amount, position, velocity) -> void:
 	for n in amount:
 		_spawn_small_asteroid(position, velocity)

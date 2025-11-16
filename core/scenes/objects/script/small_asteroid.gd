@@ -11,7 +11,7 @@ func _on_health_zero_health_reached() -> void:
 
 func _ready() -> void:
 	super()
-	damage_to_player = 25
+	damage_to_player = 50
 	damage_to_asteroids = 5
 	kill_score = 20
 

@@ -7,6 +7,9 @@ extends Node2D
 
 const SHIP_SHOOTING_SFX = "ship_shooting_sfx"
 const SHIP_DEATH_SFX = "ship_death_explosion"
+const SHIP_DAMAGED_SFX = "ship_damaged_sfx"
+
+var ship_damaged_audio_control_token : String
 
 @export var speed := 200
 @export var turn_speed := 3.0
@@ -69,12 +72,11 @@ func _movement_logik(delta) -> void:
 	
 func _on_health_zero_health_reached() -> void:
 	toggle_visibility(false)
+	AudioManager.stop_looping_audio_stream(ship_damaged_audio_control_token)
 	AudioManager.play_audio_stream(SHIP_DEATH_SFX, &"SFX")
 	emit_signal("player_died")
 
-func take_damage(received_damage) -> void:
-	health.take_damage(received_damage)
-	
+
 func respawn() -> void:
 	health._reset_health()
 	ship.velocity = Vector2.ZERO
@@ -105,3 +107,7 @@ func set_collision_enabled(enable: bool) -> void:
 
 func _on_invincibility_frames_timeout() -> void:
 	set_collision_enabled(true)
+
+
+func _on_is_damaged(in_health) -> void:
+	ship_damaged_audio_control_token = AudioManager.play_looping_audio_stream(SHIP_DAMAGED_SFX, &"SFX")

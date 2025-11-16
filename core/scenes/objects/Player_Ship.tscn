@@ -32,5 +32,6 @@ texture = ExtResource("1_qhiiv")
 wait_time = 2.0
 one_shot = true
 
+[connection signal="is_damaged" from="Ship/Health" to="." method="_on_is_damaged"]
 [connection signal="zero_health_reached" from="Ship/Health" to="." method="_on_health_zero_health_reached"]
 [connection signal="timeout" from="Ship/invincibility_frames" to="." method="_on_invincibility_frames_timeout"]
