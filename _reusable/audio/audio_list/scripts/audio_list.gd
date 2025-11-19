@@ -26,7 +26,8 @@ const AUDIO_DICTIONARY : Dictionary [String, AudioStream] = {
 	ASTEROID_BREAKING_SMALL_IDENTIFIER : ASTEROID_BREAKING_SMALL_RANDOM_MIXER,
 	SHIP_SHOOTING_IDENTIFIER : SHIP_SHOOTING_SFX,
 	SHIP_DEATH_EXPLOSION_IDENTIFIER : SHIP_DEATH_EXPLOSION_SFX,
-	SHIP_DAMAGED_IDENTIFIER : SHIP_DAMAGED_SFX
+	SHIP_DAMAGED_IDENTIFIER : SHIP_DAMAGED_SFX,
+	SHIP_ENGINE_RUNNING_IDENTIFIER : SHIP_ENGINE_RUNNING_SFX
 }
 
 func return_audio_data(audio_identifier) -> AudioStream:
@@ -58,6 +59,7 @@ const ASTEROID_BREAKING_SMALL_IDENTIFIER = "asteroid_breaking_small"
 const SHIP_SHOOTING_IDENTIFIER = "ship_shooting_sfx"
 const SHIP_DAMAGED_IDENTIFIER = "ship_damaged_sfx"
 const SHIP_DEATH_EXPLOSION_IDENTIFIER = "ship_death_explosion"
+const SHIP_ENGINE_RUNNING_IDENTIFIER = "ship_engine_sfx"
 
 
 #preloads
@@ -66,3 +68,4 @@ const ASTEROID_BREAKING_SMALL_RANDOM_MIXER = preload("uid://b2k4ytb17sj1e")
 const SHIP_SHOOTING_SFX = preload("uid://b4f2yi74epjt1")
 const SHIP_DEATH_EXPLOSION_SFX = preload("uid://bv4uk4exn4f2t")
 const SHIP_DAMAGED_SFX = preload("uid://cyqssa707gyxj")
+const SHIP_ENGINE_RUNNING_SFX = preload("uid://b2fbxx6oh43b")

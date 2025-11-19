@@ -1,7 +1,7 @@
 extends Node2D
 
 ##move to resource file? -> difficulty options
-const SELF_DAMAGE_FLAG = true
+var SELF_DAMAGE_FLAG : bool = true
 
 var direction : Vector2
 var speed : float = 400.0
@@ -11,6 +11,8 @@ var damage : float = 50.0
 @onready var screen_wrap: Node2D = $Screen_Wrap
 @onready var projectile_area: Area2D = $Projectile_Area
 
+func _ready() -> void:
+	SELF_DAMAGE_FLAG = GLOBAL_DATA.is_self_damage_enabled
 
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta

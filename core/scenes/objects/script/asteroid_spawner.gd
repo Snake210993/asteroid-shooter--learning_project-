@@ -23,6 +23,10 @@ const MAX_ROTATION : int = 360
 const ASTEROID_STARTING_AMOUNT : int = 6
 const MAXIMUM_ASTEROID_COUNT : int = 50
 
+const FRACTURE_INCREMENT : int = 3
+const TIMER_DECREMENT : float = 1.0
+
+
 var left_spawning_rectangle : Rect2i
 var right_spawning_rectangle : Rect2i
 var top_spawning_rectangle : Rect2i
@@ -30,7 +34,7 @@ var bottom_spawning_rectangle : Rect2i
 
 var rectangle_array : Array[Rect2i]
 
-
+var max_asteroid_fractures = 5
 
 var is_spawning_enabled : bool = false
 
@@ -79,7 +83,6 @@ func _spawn_random_asteroid() -> void:
 	var pos_y = randi_range(min_y, max_y)
 	
 	
-	
 	new_asteroid.position = Vector2(pos_x,pos_y)
 	var calculated_target_position = Vector2(screen_size.x/2, randi_range(100, screen_size.y - 100))
 	var new_thrust_vector = calculated_target_position - new_asteroid.position
@@ -91,6 +94,7 @@ func _spawn_random_asteroid() -> void:
 	new_asteroid.rotation = randi_range(0, MAX_ROTATION)
 	new_asteroid.has_fractured_spawn_small_asteroids.connect(Callable(self, "_has_fractured_spawn_small_asteroids"))
 	new_asteroid.receive_points.connect(Callable(asteroid_root_node, "_on_receive_points"))
+	new_asteroid.edit_fracture_amount(max_asteroid_fractures)
 	add_child(new_asteroid)
 	
 	GLOBAL_DATA.add_to_asteroids(new_asteroid)
@@ -98,8 +102,9 @@ func _spawn_random_asteroid() -> void:
 func _spawn_small_asteroid(position, velocity):
 		var new_small_asteroid := ASTEROID_SMALL.instantiate()
 		new_small_asteroid.position = position
-		var deviation = randi_range(MIN_DEVIATION, MAX_DEVIATION)
-		var deviation_vector = Vector2(deviation,deviation)
+		var deviation_x = randi_range(MIN_DEVIATION, MAX_DEVIATION)
+		var deviation_y = randi_range(MIN_DEVIATION, MAX_DEVIATION)
+		var deviation_vector = Vector2(deviation_x,deviation_y)
 		new_small_asteroid.thrust = velocity + deviation_vector
 		new_small_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
 		new_small_asteroid.rotation = randi_range(0, MAX_ROTATION)
@@ -119,3 +124,10 @@ func clean_asteroids() -> void:
 
 func _on_clean_asteroids() -> void:
 	clean_asteroids()
+
+
+func _on_increase_difficulty() -> void:
+	asteroid_spawn_timer.wait_time -= TIMER_DECREMENT
+	max_asteroid_fractures += FRACTURE_INCREMENT
+	print("new fracture amount " + str(max_asteroid_fractures))
+	print("new wait time" + str(asteroid_spawn_timer.wait_time))

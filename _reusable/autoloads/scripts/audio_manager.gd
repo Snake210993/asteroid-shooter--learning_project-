@@ -28,10 +28,12 @@ func play_looping_audio_stream(audio_identifier : String, used_bus : StringName)
 
 func stop_looping_audio_stream(audio_control_token : String):
 	var audio_player_to_be_stopped : AudioStreamPlayer = active_looping_sounds.get(audio_control_token)
-	audio_player_to_be_stopped.stop()
-	audio_player_to_be_stopped.emit_signal("finished")
-	audio_player_to_be_stopped.finished.connect(func():
-		audio_player_to_be_stopped.queue_free())
+	if audio_player_to_be_stopped != null:
+		audio_player_to_be_stopped.stop()
+		audio_player_to_be_stopped.emit_signal("finished")
+		audio_player_to_be_stopped.finished.connect(func():
+			audio_player_to_be_stopped.queue_free())
+	else: push_error("ERROR: tried to free null AudioStreamPlayer")
 
 func play_audio_stream(audio_identifier : String, used_bus : StringName) -> void:
 	var audio_stream_player := AudioStreamPlayer.new()

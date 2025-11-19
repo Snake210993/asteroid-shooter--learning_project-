@@ -8,8 +8,10 @@ extends Node2D
 const SHIP_SHOOTING_SFX = "ship_shooting_sfx"
 const SHIP_DEATH_SFX = "ship_death_explosion"
 const SHIP_DAMAGED_SFX = "ship_damaged_sfx"
+const SHIP_ENGINE_RUNNING_SFX = "ship_engine_sfx"
 
 var ship_damaged_audio_control_token : String
+var engine_audio_control_token : String
 
 @export var speed := 200
 @export var turn_speed := 3.0
@@ -23,6 +25,7 @@ const PROJECTILE = preload("res://_reusable/components/projectile.tscn")
 signal player_died
 
 var is_controllable: bool = true
+var engine_audio_is_running : bool = false 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -64,17 +67,32 @@ func _movement_logik(delta) -> void:
 		var thrust_direction
 		thrust_direction = Vector2.UP.rotated(ship.rotation)
 		ship.velocity += thrust_direction * speed * delta
+		if !engine_audio_is_running:
+			toggle_engine_sounds(engine_audio_is_running)
 	else:
 		ship.velocity = ship.velocity.lerp(Vector2.ZERO, clamp(BREAKING_POWER * delta, 0.0, 1.0))
+		if engine_audio_is_running:
+			toggle_engine_sounds(engine_audio_is_running)
 	
 	ship.move_and_slide() ## move and slide needs to be after any changed are made to velocity
 	screen_wrap.screen_wrap()
-	
+
+##split the toggle to different functions? becauuse else always gets called...
+func toggle_engine_sounds(is_sound_on : bool) -> void:
+	if is_sound_on == false:
+		engine_audio_control_token = AudioManager.play_looping_audio_stream(SHIP_ENGINE_RUNNING_SFX, &"SFX")
+		engine_audio_is_running = true
+	else:
+		AudioManager.stop_looping_audio_stream(engine_audio_control_token)
+		engine_audio_is_running = false
+
 func _on_health_zero_health_reached() -> void:
 	toggle_visibility(false)
 	AudioManager.stop_looping_audio_stream(ship_damaged_audio_control_token)
+	toggle_engine_sounds(engine_audio_is_running)
 	AudioManager.play_audio_stream(SHIP_DEATH_SFX, &"SFX")
 	emit_signal("player_died")
+
 
 
 func respawn() -> void:
@@ -109,5 +127,5 @@ func _on_invincibility_frames_timeout() -> void:
 	set_collision_enabled(true)
 
 
-func _on_is_damaged(in_health) -> void:
+func _on_is_damaged(_in_health) -> void:
 	ship_damaged_audio_control_token = AudioManager.play_looping_audio_stream(SHIP_DAMAGED_SFX, &"SFX")

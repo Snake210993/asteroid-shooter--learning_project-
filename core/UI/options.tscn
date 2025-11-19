@@ -1,0 +1,122 @@
+[gd_scene load_steps=5 format=3 uid="uid://efolve1w4njj"]
+
+[ext_resource type="Theme" uid="uid://bvudsuymnp2kj" path="res://core/resources/theme/asteroid_theme.tres" id="1_oarcp"]
+[ext_resource type="Script" uid="uid://cjrq8uvv7mig" path="res://core/UI/scripts/options.gd" id="2_n1ps4"]
+[ext_resource type="PackedScene" uid="uid://cwwqbqdv7bfhk" path="res://_reusable/ui_scenes/audio_slider.tscn" id="3_05cnl"]
+[ext_resource type="PackedScene" uid="uid://dmuk0fyhkw4xd" path="res://_reusable/ui_scenes/button_with_sound.tscn" id="3_gstrm"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_oarcp")
+script = ExtResource("2_n1ps4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+layout_mode = 2
+tab_alignment = 1
+current_tab = 0
+
+[node name="Audio" type="MarginContainer" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Audio"]
+custom_minimum_size = Vector2(7.885, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Audio_Slider_master" parent="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_05cnl")]
+layout_mode = 2
+SliderTitle = "Master"
+
+[node name="Audio_Slider_sfx" parent="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_05cnl")]
+layout_mode = 2
+SliderTitle = "Sound Effects"
+
+[node name="Audio_Slider_music" parent="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_05cnl")]
+layout_mode = 2
+SliderTitle = "Music"
+
+[node name="Audio_Slider_UI" parent="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_05cnl")]
+layout_mode = 2
+SliderTitle = "User Interface Sounds"
+
+[node name="Difficulty" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Difficulty"]
+layout_mode = 2
+
+[node name="Toggle_Self_Damage" type="CheckBox" parent="MarginContainer/TabContainer/Difficulty/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Toggle Self Damage"
+
+[node name="Graphics" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Graphics"]
+layout_mode = 2
+
+[node name="Toggle_Full_Screen" type="CheckBox" parent="MarginContainer/TabContainer/Graphics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Toggle Fullscreen"
+
+[node name="button_with_sound" parent="." instance=ExtResource("3_gstrm")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.5
+offset_top = -29.0
+offset_right = 58.5
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Back To Menu"
+flat = true
+
+[connection signal="value_changed" from="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer/VBoxContainer/Audio_Slider_master" to="." method="_on_master_changed"]
+[connection signal="value_changed" from="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer/VBoxContainer/Audio_Slider_sfx" to="." method="_on_sfx_changed"]
+[connection signal="value_changed" from="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer/VBoxContainer/Audio_Slider_music" to="." method="_on_music_changed"]
+[connection signal="value_changed" from="MarginContainer/TabContainer/Audio/ScrollContainer/MarginContainer/VBoxContainer/Audio_Slider_UI" to="." method="_on_ui_changed"]
+[connection signal="toggled" from="MarginContainer/TabContainer/Difficulty/VBoxContainer/Toggle_Self_Damage" to="." method="_on_toggle_self_damage_toggled"]
+[connection signal="toggled" from="MarginContainer/TabContainer/Graphics/VBoxContainer/Toggle_Full_Screen" to="." method="_on_toggle_full_screen_toggled"]
+[connection signal="button_clicked" from="button_with_sound" to="." method="_on_back_button_button_clicked"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cditvy3j6e17w"]
+[gd_scene load_steps=12 format=3 uid="uid://cditvy3j6e17w"]
 
 [ext_resource type="Script" uid="uid://cbq35v6o2m5t0" path="res://core/scenes/objects/script/asteroid_game.gd" id="1_54m02"]
 [ext_resource type="PackedScene" uid="uid://327vdnnkmu8k" path="res://core/scenes/objects/Player_Ship.tscn" id="1_ku4n5"]
@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://d0giwlrmexom7" path="res://core/UI/ui_respawn_window.tscn" id="5_mo2gp"]
 [ext_resource type="PackedScene" uid="uid://vj3q43cry6oj" path="res://core/UI/game_over.tscn" id="7_k0mlk"]
 [ext_resource type="PackedScene" uid="uid://debbgmghjah2u" path="res://core/UI/main_menu.tscn" id="8_67qwa"]
+[ext_resource type="PackedScene" uid="uid://j34cxjg62fje" path="res://core/UI/highscore.tscn" id="9_4qhbw"]
 [ext_resource type="PackedScene" uid="uid://dw78t627xrbsd" path="res://core/UI/credits.tscn" id="9_covi4"]
+[ext_resource type="PackedScene" uid="uid://efolve1w4njj" path="res://core/UI/options.tscn" id="10_covi4"]
 
 [node name="Asteroid_Root_Node" type="Node"]
 script = ExtResource("1_54m02")
@@ -36,8 +38,17 @@ layout_mode = 1
 [node name="Main_Menu" parent="UI_Root" instance=ExtResource("8_67qwa")]
 layout_mode = 1
 
+[node name="Highscore" parent="UI_Root" instance=ExtResource("9_4qhbw")]
+visible = false
+layout_mode = 1
+
 [node name="Credits" parent="UI_Root" instance=ExtResource("9_covi4")]
 visible = false
 layout_mode = 1
 
+[node name="Options" parent="UI_Root" instance=ExtResource("10_covi4")]
+visible = false
+layout_mode = 1
+
 [connection signal="clean_asteroids" from="." to="Asteroid_Spawner" method="_on_clean_asteroids"]
+[connection signal="increase_difficulty" from="." to="Asteroid_Spawner" method="_on_increase_difficulty"]

@@ -11,7 +11,7 @@ const ASTEROID_DEATH_AUDIO = "asteroid_breaking_large"
 
 var kill_score = 40
 
-const MAX_FRACTURE_AMOUNT = 3
+var max_fracture_amount = 5
 
 signal has_fractured_spawn_small_asteroids
 signal receive_points
@@ -42,7 +42,7 @@ func _ready() -> void:
 	screen_wrap.IS_SCREEN_WRAPPING = false
 	linear_velocity = thrust
 	add_constant_torque(torque)
-	fracture_amount = randi_range(0, MAX_FRACTURE_AMOUNT)
+	fracture_amount = randi_range(0, max_fracture_amount)
 
 func _physics_process(_delta: float) -> void:
 	if (has_entered_viewport):
@@ -64,3 +64,6 @@ func _on_health_zero_health_reached() -> void:
 	receive_points.emit()
 	AudioManager.play_audio_stream(ASTEROID_DEATH_AUDIO, &"SFX")
 	queue_free()
+	
+func edit_fracture_amount(new_fracture_amount : int) -> void:
+	max_fracture_amount = new_fracture_amount
