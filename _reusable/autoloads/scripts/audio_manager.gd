@@ -1,5 +1,6 @@
 extends Node2D
 
+
 ##this plays music without local effects - for all to hear
 @onready var radio_global: AudioStreamPlayer = $radio_global
 
@@ -8,7 +9,6 @@ extends Node2D
 
 ##this stores the looping sounds using a String and AudioStreamPlayer
 var active_looping_sounds : Dictionary[String, AudioStreamPlayer]
-
 
 func play_radio_global(audio_identifier : String, used_bus : StringName) -> void:
 	var stream_to_be_played = _return_stream(audio_identifier)
@@ -43,16 +43,32 @@ func play_audio_stream(audio_identifier : String, used_bus : StringName) -> void
 		audio_stream_player.queue_free())
 	audio_stream_player.play()
 
-func _create_new_audio_stream_player() -> AudioStreamPlayer:
-	var audio_stream_player := AudioStreamPlayer.new()
-	return audio_stream_player
+
+
+
+
+
+
+	
+#region helper functions
+func _return_stream(audio_identifier : String) -> AudioStream:
+	var stream_to_be_played = audio_list.return_audio_data(audio_identifier)
+	return stream_to_be_played
 
 func _set_audio_stream_player(stream_to_populate : AudioStreamPlayer, audio_identifier : String, used_bus : StringName) -> AudioStreamPlayer:
 	stream_to_populate.stream = _return_stream(audio_identifier)
 	stream_to_populate.bus = used_bus
 	return stream_to_populate
 
+func _create_new_audio_stream_player() -> AudioStreamPlayer:
+	var audio_stream_player := AudioStreamPlayer.new()
+	return audio_stream_player
 
-func _return_stream(audio_identifier : String) -> AudioStream:
-	var stream_to_be_played = audio_list.return_audio_data(audio_identifier)
-	return stream_to_be_played
+func set_bus_volume(bus_name: String, volume_db: float) -> void:
+	var bus_index: int = AudioServer.get_bus_index(bus_name)
+	if bus_index == -1:
+		push_error("Audio bus not found: " + bus_name)
+		return
+	AudioServer.set_bus_volume_db(bus_index, volume_db)
+
+#endregion

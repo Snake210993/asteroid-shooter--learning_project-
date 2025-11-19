@@ -9,9 +9,10 @@ signal back
 @onready var nr_1: Label = $MarginContainer/VBoxContainer/HBoxContainer/Nr_1
 
 
-
+ 
 func _on_button_with_sound_button_clicked() -> void:
 	emit_signal("back")
+	
 
 
 func set_scores(array_of_scores : Array[int]) -> void:

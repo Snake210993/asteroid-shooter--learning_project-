@@ -8,7 +8,6 @@ var points : int = 0
 var highscores : Array[int] = [0,0,0,0,0]
 
 
-
 #SETTINGS FLAGS
 var is_self_damage_enabled : bool = false
 

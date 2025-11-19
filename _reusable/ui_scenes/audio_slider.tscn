@@ -25,8 +25,9 @@ layout_mode = 2
 
 [node name="Audio_Slider" type="HSlider" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-value = 50.0
-rounded = true
+max_value = 1.0
+step = 0.01
+value = 0.5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

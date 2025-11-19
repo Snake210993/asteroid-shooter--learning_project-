@@ -9,6 +9,8 @@ extends Node
 @onready var asteroid_spawner: Node2D = $Asteroid_Spawner
 @onready var options: Control = $UI_Root/Options
 @onready var highscore: Control = $UI_Root/Highscore
+@onready var pause_menu: Control = $UI_Root/pause_menu
+
 
 const POINT_THRESHOLD_LEVEL_ONE : int = 500
 const POINT_THRESHOLD_LEVEL_TWO : int = 1000
@@ -23,9 +25,10 @@ const CREDITS_STATE = "credits"
 const MAIN_MENU_STATE = "main_menu"
 const HIGHSCORE_STATE = "highscore"
 const OPTIONS_STATE = "options"
+const PAUSE_STATE = "pause"
 
 var remaining_lives: int = 3
-var state: String = "Alive"  # "Alive", "WaitingForRespawn", "GameOver"
+var state: String = "GameOver"  # "Alive", "WaitingForRespawn", "GameOver"
 var current_menu: String = MAIN_MENU_STATE # "credits, "options", "highscore"
 
 signal clean_asteroids
@@ -43,17 +46,25 @@ func _on_fullscreen_toggled(is_toggled : bool) -> void:
 	if is_toggled: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
+func _on_toggle_self_damage(is_toggled : bool) -> void:
+	GLOBAL_DATA.is_self_damage_enabled = is_toggled
+	print("self damage is = " + str(GLOBAL_DATA.is_self_damage_enabled))
+
 func _on_ui_audio_changed(value : float) -> void:
-	print("ui changed - new value = " + str(value))
+	var new_ui_volume = linear_to_db(value)
+	AudioManager.set_bus_volume(&"UI", new_ui_volume)
 
 func _on_master_audio_changed(value : float) -> void:
-	print("master changed - new value = " + str(value))
+	var new_master_volume = linear_to_db(value)
+	AudioManager.set_bus_volume(&"Master", new_master_volume)
 
 func _on_sfx_audio_changed(value : float) -> void:
-	print("sfx changed - new value = " + str(value))
+	var new_sfx_volume = linear_to_db(value)
+	AudioManager.set_bus_volume(&"SFX", new_sfx_volume)
 
 func _on_music_audio_changed(value : float) -> void:
-	print("music changed - new value = " + str(value))
+	var new_music_volume = linear_to_db(value)
+	AudioManager.set_bus_volume(&"MUSIC", new_music_volume)
 #endregion
 
 func _highscore_requested() -> void:
@@ -93,7 +104,6 @@ func _on_respawn_requested() -> void:
 	if state != "WaitingForRespawn":
 		return
 	ui.hide_respawn_panel()
-	#get_tree().paused = false
 	player_ship.respawn()
 	state = "Alive"
 	
@@ -105,6 +115,10 @@ func _back_to_menu_requested() -> void:
 	game_over.hide_game_over()
 	main_menu.show_main_menu()
 	player_ship.set_controllable(false)
+	if get_tree().paused == true:
+		_unpause_game()
+		player_ship.visible = false
+	state = "GameOver"
 	
 
 func _start_game_requested() -> void:
@@ -112,7 +126,7 @@ func _start_game_requested() -> void:
 	ui.show_game_ui()
 	player_ship.toggle_visibility(true)
 	player_ship.set_controllable(true)
-	player_ship.health._reset_health()
+	player_ship.respawn()
 	GLOBAL_DATA.reset_points()
 	ui.update_score(GLOBAL_DATA.points)
 	emit_signal("clean_asteroids")
@@ -179,6 +193,8 @@ func _ready() -> void:
 	respawn_panel.connect("respawn", Callable(self, "_on_respawn_requested"))
 	respawn_panel.connect("back_to_menu", Callable(self, "_back_to_menu_requested"))
 	game_over.connect("back_to_menu", Callable(self, "_back_to_menu_requested"))
+	pause_menu.connect("back_to_menu", Callable(self, "_back_to_menu_requested"))
+	pause_menu.connect("continue_pressed", Callable(self, "_continue_requested"))
 	
 	main_menu.connect("start_game", Callable(self, "_start_game_requested"))
 	main_menu.connect("options", Callable(self, "_options_requested"))
@@ -189,6 +205,7 @@ func _ready() -> void:
 	credits.connect("back", Callable(self, "_back_requested"))
 	options.connect("back", Callable(self, "_back_requested"))
 	options.connect("fullscreen_toggle", Callable(self, "_on_fullscreen_toggled"))
+	options.connect("self_damage_toggle", Callable(self, "_on_toggle_self_damage"))
 	options.connect("ui_audio_changed", Callable(self, "_on_ui_audio_changed"))
 	options.connect("master_audio_changed", Callable(self, "_on_master_audio_changed"))
 	options.connect("sfx_audio_changed", Callable(self, "_on_sfx_audio_changed"))
@@ -208,3 +225,15 @@ func _on_receive_points() -> void:
 	_update_ui()
 	increase_difficulty_check(GLOBAL_DATA.points)
 	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("Pause"):
+		if state == "Alive":
+			_pause_game()
+func _pause_game() -> void:
+	get_tree().paused = true
+	pause_menu.visible = true
+func _unpause_game() -> void:
+	get_tree().paused = false
+	pause_menu.visible = false
+func _continue_requested() -> void:
+	_unpause_game()

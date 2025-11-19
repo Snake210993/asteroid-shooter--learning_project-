@@ -4,6 +4,8 @@ extends Node2D
 @onready var health: Node2D = $Ship/Health
 @onready var screen_wrap: Node2D = $Ship/Screen_Wrap
 @onready var invincibility_frames: Timer = $Ship/invincibility_frames
+@onready var damaged_particles: GPUParticles2D = $Ship/damaged_particles
+@onready var thruster_particles: GPUParticles2D = $Ship/ThrusterParticles
 
 const SHIP_SHOOTING_SFX = "ship_shooting_sfx"
 const SHIP_DEATH_SFX = "ship_death_explosion"
@@ -25,7 +27,8 @@ const PROJECTILE = preload("res://_reusable/components/projectile.tscn")
 signal player_died
 
 var is_controllable: bool = true
-var engine_audio_is_running : bool = false 
+var engine_is_running : bool = false 
+var ship_is_damaged : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,12 +38,12 @@ func _ready() -> void:
 	position.y = screen_size.y / 2
 	
 
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("Fire"): _fire_projectile()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	
 	_movement_logik(delta)
-	
-	if Input.is_action_just_pressed("Fire"): _fire_projectile()
 
 func _fire_projectile() -> void:
 	
@@ -67,12 +70,14 @@ func _movement_logik(delta) -> void:
 		var thrust_direction
 		thrust_direction = Vector2.UP.rotated(ship.rotation)
 		ship.velocity += thrust_direction * speed * delta
-		if !engine_audio_is_running:
-			toggle_engine_sounds(engine_audio_is_running)
+		if !engine_is_running:
+			toggle_engine_sounds(engine_is_running)
+			thruster_particles.emitting = true
 	else:
 		ship.velocity = ship.velocity.lerp(Vector2.ZERO, clamp(BREAKING_POWER * delta, 0.0, 1.0))
-		if engine_audio_is_running:
-			toggle_engine_sounds(engine_audio_is_running)
+		if engine_is_running:
+			toggle_engine_sounds(engine_is_running)
+			thruster_particles.emitting = false
 	
 	ship.move_and_slide() ## move and slide needs to be after any changed are made to velocity
 	screen_wrap.screen_wrap()
@@ -81,15 +86,19 @@ func _movement_logik(delta) -> void:
 func toggle_engine_sounds(is_sound_on : bool) -> void:
 	if is_sound_on == false:
 		engine_audio_control_token = AudioManager.play_looping_audio_stream(SHIP_ENGINE_RUNNING_SFX, &"SFX")
-		engine_audio_is_running = true
+		engine_is_running = true
 	else:
 		AudioManager.stop_looping_audio_stream(engine_audio_control_token)
-		engine_audio_is_running = false
+		engine_is_running = false
 
 func _on_health_zero_health_reached() -> void:
 	toggle_visibility(false)
-	AudioManager.stop_looping_audio_stream(ship_damaged_audio_control_token)
-	toggle_engine_sounds(engine_audio_is_running)
+	if ship_is_damaged:
+		AudioManager.stop_looping_audio_stream(ship_damaged_audio_control_token)
+	if engine_is_running:
+		damaged_particles.emitting = false
+		toggle_engine_sounds(engine_is_running)
+	thruster_particles.emitting = false
 	AudioManager.play_audio_stream(SHIP_DEATH_SFX, &"SFX")
 	emit_signal("player_died")
 
@@ -128,4 +137,10 @@ func _on_invincibility_frames_timeout() -> void:
 
 
 func _on_is_damaged(_in_health) -> void:
+	ship_is_damaged = true
 	ship_damaged_audio_control_token = AudioManager.play_looping_audio_stream(SHIP_DAMAGED_SFX, &"SFX")
+	var direction_x = randf_range(-1.0, 1.0)
+	var direction_y = randf_range(-1.0, 1.0)
+	var process_material: ParticleProcessMaterial = damaged_particles.process_material as ParticleProcessMaterial
+	process_material.direction = Vector3(direction_x, direction_y, 0.0)
+	damaged_particles.emitting = true

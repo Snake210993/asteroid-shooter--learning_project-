@@ -4,13 +4,15 @@ extends Control
 signal back
 
 signal fullscreen_toggle
+signal self_damage_toggle(bool)
 signal ui_audio_changed
 signal master_audio_changed
 signal sfx_audio_changed
 signal music_audio_changed
 
+
 func _on_toggle_self_damage_toggled(toggled_on: bool) -> void:
-	GLOBAL_DATA.is_self_damage_enabled = toggled_on
+	self_damage_toggle.emit(toggled_on)
 
 func _on_back_button_button_clicked() -> void:
 	emit_signal("back")
