@@ -5,18 +5,12 @@ const MAX_HIGHSCORES : int = 5
 
 var asteroids: Array[Node]
 var points : int = 0
-var highscores : Array[int] = [0,0,0,0,0]
+var highscores: Array = []
 
 
 #SETTINGS FLAGS
 var is_self_damage_enabled : bool = false
 
-
-func commit_to_highscore(new_points : int) -> void:
-	highscores.push_back(new_points)
-	if highscores.size() > MAX_HIGHSCORES:
-		highscores.sort()
-		highscores.remove_at(0)
 
 func reset_points() -> void:
 	points = 0

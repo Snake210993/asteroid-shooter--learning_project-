@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=7 format=3 uid="uid://cxovxqfrvtdej"]
+[gd_resource type="AudioStreamPlaylist" load_steps=7 format=3 uid="uid://cxovxqfrvtdej"]
 
 [ext_resource type="AudioStream" uid="uid://5te2ljxfqqla" path="res://assets/audio_files/music/Karl Casey - White Bat XXII - 01 Dead Or Alive.mp3" id="1_0donr"]
 [ext_resource type="AudioStream" uid="uid://d27vqk4ngbyhx" path="res://assets/audio_files/music/Karl Casey - White Bat XXII - 02 White Tiger.mp3" id="2_4gcsi"]
@@ -8,10 +8,11 @@
 [ext_resource type="AudioStream" uid="uid://djm8l332fjllw" path="res://assets/audio_files/music/Karl Casey - White Bat XXII - 06 Ad Infinitum.mp3" id="6_2f1ij"]
 
 [resource]
-streams_count = 6
-stream_0/stream = ExtResource("1_0donr")
-stream_1/stream = ExtResource("2_4gcsi")
-stream_2/stream = ExtResource("3_h3evv")
-stream_3/stream = ExtResource("4_8a4ht")
-stream_4/stream = ExtResource("5_lnam5")
-stream_5/stream = ExtResource("6_2f1ij")
+shuffle = true
+stream_count = 6
+stream_0 = ExtResource("1_0donr")
+stream_1 = ExtResource("2_4gcsi")
+stream_2 = ExtResource("3_h3evv")
+stream_3 = ExtResource("4_8a4ht")
+stream_4 = ExtResource("5_lnam5")
+stream_5 = ExtResource("6_2f1ij")

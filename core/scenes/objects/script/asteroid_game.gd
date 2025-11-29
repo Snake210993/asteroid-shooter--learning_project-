@@ -8,8 +8,9 @@ extends Node
 @onready var credits: Control = $UI_Root/Credits
 @onready var asteroid_spawner: Node2D = $Asteroid_Spawner
 @onready var options: Control = $UI_Root/Options
-@onready var highscore: Control = $UI_Root/Highscore
+@onready var highscore: highscore_class = $UI_Root/Highscore
 @onready var pause_menu: Control = $UI_Root/pause_menu
+@onready var enter_highscore_field: Control = $UI_Root/enter_highscore_field
 
 
 const POINT_THRESHOLD_LEVEL_ONE : int = 500
@@ -37,8 +38,8 @@ signal increase_difficulty
 
 #region menu navigation
 func _options_requested() -> void:
-	main_menu.visible = false
-	options.visible = true
+	main_menu.hide_main_menu()
+	options.show_options()
 	current_menu = OPTIONS_STATE
 
 #region options menu
@@ -68,35 +69,37 @@ func _on_music_audio_changed(value : float) -> void:
 #endregion
 
 func _highscore_requested() -> void:
-	main_menu.visible = false
-	highscore.visible = true
-	highscore.set_scores(GLOBAL_DATA.highscores)
+	main_menu.hide_main_menu()
+	highscore.show_highscore()
+	highscore.sort_highscores(GLOBAL_DATA.highscores)
 	current_menu = HIGHSCORE_STATE
+	highscore.set_focus()
 
 func _exit_game_requested() -> void:
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST) #this should trigger saving and other quitting functionality
 	get_tree().quit()
 func _credits_requested() -> void:
-	main_menu.visible = false
-	credits.visible = true
+	main_menu.hide_main_menu()
+	credits.show_credits()
 	current_menu = CREDITS_STATE
 	
 func _back_requested() -> void:
 	return_to_main(current_menu)
+	main_menu.set_focus()
 	
 func return_to_main(returning_from_menu) -> void:
 	match returning_from_menu:
 		CREDITS_STATE:
-			main_menu.visible = true
-			credits.visible = false
+			main_menu.show_main_menu()
+			credits.hide_credits()
 			current_menu = MAIN_MENU_STATE
 		OPTIONS_STATE:
-			main_menu.visible = true
-			options.visible = false
+			main_menu.show_main_menu()
+			options.hide_options()
 			current_menu = MAIN_MENU_STATE
 		HIGHSCORE_STATE:
-			main_menu.visible = true
-			highscore.visible = false
+			main_menu.show_main_menu()
+			highscore.hide_highscore()
 			current_menu = MAIN_MENU_STATE
 		_:
 			print("no_state")
@@ -119,7 +122,18 @@ func _back_to_menu_requested() -> void:
 		_unpause_game()
 		player_ship.visible = false
 	state = "GameOver"
-	
+	player_ship.reset_stats_ship()
+	main_menu.set_focus()
+
+func _pause_game() -> void:
+	get_tree().paused = true
+	ui.show_pause_menu()
+func _unpause_game() -> void:
+	get_tree().paused = false
+	ui.hide_pause_menu()
+func _continue_requested() -> void:
+	_unpause_game()
+
 
 func _start_game_requested() -> void:
 	main_menu.hide_main_menu()
@@ -131,6 +145,7 @@ func _start_game_requested() -> void:
 	ui.update_score(GLOBAL_DATA.points)
 	emit_signal("clean_asteroids")
 	state = "Alive"
+	current_point_threshold = 0
 #endregion
 #region UI updates
 func _update_ui() -> void:
@@ -140,6 +155,10 @@ func _show_game_over() -> void:
 	ui.hide_game_ui()
 	game_over.update_score()
 	game_over.show_game_over()
+func _show_new_highscore() -> void:
+	enter_highscore_field.show_enter_name_field()
+	enter_highscore_field.set_score_text(str(GLOBAL_DATA.points))
+	enter_highscore_field.new_highscore_fluff()
 
 #endregion
 #region game state changes
@@ -152,15 +171,25 @@ func _on_player_died() -> void:
 
 	if remaining_lives > 0:
 		state = "WaitingForRespawn"
-		##should i pause game?
 		player_ship.set_controllable(false)
 		ui.show_respawn_panel()
 	else:
 		state = "GameOver"
 		player_ship.set_controllable(false)
-		GLOBAL_DATA.commit_to_highscore(GLOBAL_DATA.points)
-		_show_game_over()
+		if _check_if_score_is_new_highscore(): _show_new_highscore()
+		else : _show_game_over()
 
+func _check_if_score_is_new_highscore() -> bool:
+	GLOBAL_DATA.highscores.sort()
+	if GLOBAL_DATA.points > GLOBAL_DATA.highscores.get(0): return true
+	else: return false
+
+
+func _commit_to_highscore(new_name: String) -> void:
+	highscore.add_new_highscore(new_name, GLOBAL_DATA.points, GLOBAL_DATA.highscores)
+	highscore.sort_highscores(GLOBAL_DATA.highscores)
+	enter_highscore_field.hide_enter_name_field()
+	_show_game_over()
 
 #endregion
 #region difficulty
@@ -174,17 +203,14 @@ func increase_difficulty_check(current_points : int):
 		if current_point_threshold < POINT_THRESHOLD_LEVEL_THREE:
 			emit_signal("increase_difficulty")
 			current_point_threshold = POINT_THRESHOLD_LEVEL_THREE
-			print("difficulty level 3 reached")
 	elif current_points >= POINT_THRESHOLD_LEVEL_TWO:
 		if current_point_threshold < POINT_THRESHOLD_LEVEL_TWO:
 			emit_signal("increase_difficulty")
 			current_point_threshold = POINT_THRESHOLD_LEVEL_TWO
-			print("difficulty level 2 reached")
 	elif current_points >= POINT_THRESHOLD_LEVEL_ONE:
 		if current_point_threshold < POINT_THRESHOLD_LEVEL_ONE:
 			emit_signal("increase_difficulty")
 			current_point_threshold = POINT_THRESHOLD_LEVEL_ONE
-			print("difficulty level 1 reached")
 #endregion
 
 
@@ -212,6 +238,8 @@ func _ready() -> void:
 	options.connect("music_audio_changed", Callable(self, "_on_music_audio_changed"))
 	
 	highscore.connect("back", Callable(self, "_back_requested"))
+	enter_highscore_field.connect("name_submit", Callable(self, "_commit_to_highscore"))
+	
 	
 	player_ship.toggle_visibility(false)
 	player_ship.set_controllable(false)
@@ -220,6 +248,7 @@ func _ready() -> void:
 	AudioManager.play_radio_global(GAME_MUSIC, &"MUSIC")
 	
 	_update_ui()
+	main_menu.set_focus()
 
 func _on_receive_points() -> void:
 	_update_ui()
@@ -229,11 +258,3 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pause"):
 		if state == "Alive":
 			_pause_game()
-func _pause_game() -> void:
-	get_tree().paused = true
-	pause_menu.visible = true
-func _unpause_game() -> void:
-	get_tree().paused = false
-	pause_menu.visible = false
-func _continue_requested() -> void:
-	_unpause_game()

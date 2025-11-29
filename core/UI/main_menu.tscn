@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://debbgmghjah2u"]
+[gd_scene load_steps=4 format=3 uid="uid://debbgmghjah2u"]
 
 [ext_resource type="Theme" uid="uid://bvudsuymnp2kj" path="res://core/resources/theme/asteroid_theme.tres" id="1_wiuil"]
 [ext_resource type="Script" uid="uid://d33k3oijuvpaf" path="res://core/UI/scripts/main_menu.gd" id="2_jtb02"]
 [ext_resource type="PackedScene" uid="uid://dmuk0fyhkw4xd" path="res://_reusable/ui_scenes/button_with_sound.tscn" id="3_q8518"]
-[ext_resource type="AudioStream" uid="uid://dv7ihypmrhlpl" path="res://assets/audio_files/UI/Signal Positive Bubble A.wav" id="4_f2hld"]
-[ext_resource type="AudioStream" uid="uid://dokujvm725pfi" path="res://assets/audio_files/UI/Signal Positive JRPG A.wav" id="5_2rgmo"]
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -34,43 +32,29 @@ layout_mode = 2
 theme = ExtResource("1_wiuil")
 text = "Start Game"
 flat = true
-hovered_stream = ExtResource("4_f2hld")
-clicked_stream = ExtResource("5_2rgmo")
-selected_bus = &"UI"
 
 [node name="options" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_q8518")]
 layout_mode = 2
 theme = ExtResource("1_wiuil")
 text = "Options"
 flat = true
-hovered_stream = ExtResource("4_f2hld")
-clicked_stream = ExtResource("5_2rgmo")
-selected_bus = &"UI"
 
 [node name="highscore" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_q8518")]
 layout_mode = 2
 theme = ExtResource("1_wiuil")
 text = "Highscore"
 flat = true
-hovered_stream = ExtResource("4_f2hld")
-clicked_stream = ExtResource("5_2rgmo")
-selected_bus = &"UI"
 
 [node name="credits" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_q8518")]
 layout_mode = 2
 text = "Credits"
 flat = true
-hovered_stream = ExtResource("4_f2hld")
-clicked_stream = ExtResource("5_2rgmo")
 
 [node name="exit_game" parent="MarginContainer/VBoxContainer" instance=ExtResource("3_q8518")]
 layout_mode = 2
 theme = ExtResource("1_wiuil")
 text = "Exit Game"
 flat = true
-hovered_stream = ExtResource("4_f2hld")
-clicked_stream = ExtResource("5_2rgmo")
-selected_bus = &"UI"
 
 [connection signal="button_clicked" from="MarginContainer/VBoxContainer/start_game" to="." method="_on_start_game_pressed"]
 [connection signal="button_clicked" from="MarginContainer/VBoxContainer/options" to="." method="_on_options_pressed"]

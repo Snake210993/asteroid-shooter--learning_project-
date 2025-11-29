@@ -7,6 +7,10 @@ signal exit_game
 signal credits
 
 
+
+func set_focus() -> void:
+	$MarginContainer/VBoxContainer/start_game.grab_focus()
+
 func hide_main_menu() -> void:
 	visible = false
 func show_main_menu() -> void:

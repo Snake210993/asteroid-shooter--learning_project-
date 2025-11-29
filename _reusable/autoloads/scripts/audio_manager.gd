@@ -16,7 +16,6 @@ func play_radio_global(audio_identifier : String, used_bus : StringName) -> void
 	radio_global.bus = used_bus
 	radio_global.play()
 
-
 func play_looping_audio_stream(audio_identifier : String, used_bus : StringName) -> String:
 	var looping_audio_stream_player := AudioStreamPlayer.new()
 	looping_audio_stream_player = _set_audio_stream_player(looping_audio_stream_player, audio_identifier, used_bus)
@@ -70,5 +69,5 @@ func set_bus_volume(bus_name: String, volume_db: float) -> void:
 		push_error("Audio bus not found: " + bus_name)
 		return
 	AudioServer.set_bus_volume_db(bus_index, volume_db)
-
+	
 #endregion

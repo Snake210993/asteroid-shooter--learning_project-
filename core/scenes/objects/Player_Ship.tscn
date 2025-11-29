@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://327vdnnkmu8k"]
+[gd_scene load_steps=14 format=3 uid="uid://327vdnnkmu8k"]
 
 [ext_resource type="Script" uid="uid://bfpv4lkyvmn6r" path="res://core/scenes/objects/script/player_ship.gd" id="1_glpa6"]
 [ext_resource type="Texture2D" uid="uid://32y2xjtb346b" path="res://core/resources/textures/asteroid_shooter_ship.tres" id="1_qhiiv"]
+[ext_resource type="PackedScene" uid="uid://d3pt5mfkjxy5g" path="res://core/particles/ship_explosion.tscn" id="2_k1ihl"]
 [ext_resource type="PackedScene" uid="uid://d12dcf3qc13ai" path="res://_reusable/components/health.tscn" id="3_4n1ev"]
 [ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://_reusable/components/screen_wrap.tscn" id="4_xcgsg"]
 [ext_resource type="Texture2D" uid="uid://dsx1hq0t77j64" path="res://core/resources/textures/projectile.tres" id="5_c1xxj"]
@@ -60,6 +61,7 @@ turbulence_noise_speed_random = 4.0
 texture_filter = 1
 scale = Vector2(2, 2)
 script = ExtResource("1_glpa6")
+ship_explosion_scene = ExtResource("2_k1ihl")
 
 [node name="Ship" type="CharacterBody2D" parent="." groups=["Player"]]
 z_index = 2
@@ -96,6 +98,7 @@ process_material = SubResource("ParticleProcessMaterial_k1ihl")
 
 [node name="ThrusterParticles" type="GPUParticles2D" parent="Ship"]
 z_index = 1
+emitting = false
 amount = 150
 lifetime = 2.0
 randomness = 1.0

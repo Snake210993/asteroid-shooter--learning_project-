@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cditvy3j6e17w"]
+[gd_scene load_steps=13 format=3 uid="uid://cditvy3j6e17w"]
 
 [ext_resource type="Script" uid="uid://cbq35v6o2m5t0" path="res://core/scenes/objects/script/asteroid_game.gd" id="1_54m02"]
 [ext_resource type="PackedScene" uid="uid://327vdnnkmu8k" path="res://core/scenes/objects/Player_Ship.tscn" id="1_ku4n5"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://dw78t627xrbsd" path="res://core/UI/credits.tscn" id="9_covi4"]
 [ext_resource type="PackedScene" uid="uid://efolve1w4njj" path="res://core/UI/options.tscn" id="10_covi4"]
 [ext_resource type="PackedScene" uid="uid://ba0acdrled3bk" path="res://core/UI/pause_menu.tscn" id="11_qkoje"]
-[ext_resource type="PackedScene" uid="uid://p14fcmrepdws" path="res://core/UI/enter_name_field.tscn" id="13_ykirs"]
 
 [node name="Asteroid_Root_Node" type="Node"]
 script = ExtResource("1_54m02")
@@ -40,16 +39,9 @@ layout_mode = 1
 [node name="Main_Menu" parent="UI_Root" instance=ExtResource("8_67qwa")]
 layout_mode = 1
 
-[node name="Highscore" parent="UI_Root" node_paths=PackedStringArray("name_label_lookup") instance=ExtResource("9_4qhbw")]
+[node name="Highscore" parent="UI_Root" instance=ExtResource("9_4qhbw")]
 visible = false
 layout_mode = 1
-name_label_lookup = {
-NodePath("MarginContainer/HighscoreContainer/Highscore1/Nr_1"): NodePath("MarginContainer/HighscoreContainer/Highscore1/Name_1"),
-NodePath("MarginContainer/HighscoreContainer/Highscore2/Nr_2"): NodePath("MarginContainer/HighscoreContainer/Highscore2/Name_2"),
-NodePath("MarginContainer/HighscoreContainer/Highscore3/Nr_3"): NodePath("MarginContainer/HighscoreContainer/Highscore3/Name_3"),
-NodePath("MarginContainer/HighscoreContainer/Highscore4/Nr_4"): NodePath("MarginContainer/HighscoreContainer/Highscore4/Name_4"),
-NodePath("MarginContainer/HighscoreContainer/Highscore5/Nr_5"): NodePath("MarginContainer/HighscoreContainer/Highscore5/Name_5")
-}
 
 [node name="Credits" parent="UI_Root" instance=ExtResource("9_covi4")]
 visible = false
@@ -61,10 +53,6 @@ visible = false
 layout_mode = 1
 
 [node name="Options" parent="UI_Root" instance=ExtResource("10_covi4")]
-visible = false
-layout_mode = 1
-
-[node name="enter_highscore_field" parent="UI_Root" instance=ExtResource("13_ykirs")]
 visible = false
 layout_mode = 1
 

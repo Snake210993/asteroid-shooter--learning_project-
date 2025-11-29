@@ -7,6 +7,7 @@ extends Control
 
 @onready var respawn_panel: Control = $respawn_panel
 @onready var margin_container: MarginContainer = $MarginContainer
+@onready var pause_menu: Control = $pause_menu
 
 
 func _ready() -> void:
@@ -24,6 +25,7 @@ func update_lives(lives: int) -> void:
 
 func show_respawn_panel() -> void:
 	respawn_panel.visible = true
+	respawn_panel.set_focus()
 
 func hide_respawn_panel() -> void:
 	respawn_panel.visible = false
@@ -32,6 +34,12 @@ func hide_game_ui() -> void:
 	margin_container.visible = false
 func show_game_ui() -> void:
 	margin_container.visible = true
+	
+func show_pause_menu() -> void:
+	pause_menu.visible = true
+	pause_menu.set_focus()
+func hide_pause_menu() -> void:
+	pause_menu.visible = false
 
 func reset_ui(remaining_lives : int) -> void:
 	update_lives(remaining_lives)

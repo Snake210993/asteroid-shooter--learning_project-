@@ -1,6 +1,6 @@
 extends Node
 
-@onready var screen_size = get_viewport().size
+@onready var screen_size : Vector2
 @onready var asteroid_spawn_timer: Timer = $asteroid_spawn_timer
 
 const ASTEROID_LARGE = preload("res://core/scenes/objects/large_asteroid.tscn")
@@ -41,15 +41,29 @@ var is_spawning_enabled : bool = false
 
 
 func _ready() -> void:
-	left_spawning_rectangle = Rect2i(-100, 0, 100, screen_size.y)
+	_update_screen_size()
+	calculate_rectangles()
+	get_viewport().size_changed.connect(_update_screen_size)
+	##recalculate rectangles on change!!!
+
+
+func calculate_rectangles() -> void:
+	rectangle_array.clear()
+	left_spawning_rectangle = Rect2i(-100, 0, 100, int(screen_size.y))
 	rectangle_array.push_back(left_spawning_rectangle)
-	right_spawning_rectangle = Rect2i(screen_size.x, 0, 100, screen_size.y)
+	right_spawning_rectangle = Rect2i(int(screen_size.x), 0, 100, int(screen_size.y))
 	rectangle_array.push_back(right_spawning_rectangle)
-	bottom_spawning_rectangle = Rect2i(0, screen_size.y, screen_size.x, 100)
+	bottom_spawning_rectangle = Rect2i(0, int(screen_size.y), int(screen_size.x), 100)
 	rectangle_array.push_back(bottom_spawning_rectangle)
-	top_spawning_rectangle = Rect2i(0, 0, screen_size.x, -100)
+	top_spawning_rectangle = Rect2i(0, 0, int(screen_size.x), -100)
 	rectangle_array.push_back(top_spawning_rectangle)
-	
+
+
+
+func _update_screen_size() -> void:
+	var visible_rectangle : Rect2 = get_viewport().get_visible_rect()
+	screen_size = visible_rectangle.size
+	calculate_rectangles()
 
 func _on_asteroid_spawn_timer_timeout() -> void:
 	_spawn_random_asteroid()
@@ -84,7 +98,7 @@ func _spawn_random_asteroid() -> void:
 	
 	
 	new_asteroid.position = Vector2(pos_x,pos_y)
-	var calculated_target_position = Vector2(screen_size.x/2, randi_range(100, screen_size.y - 100))
+	var calculated_target_position = Vector2(screen_size.x/2, randf_range(100, screen_size.y - 100))
 	var new_thrust_vector = calculated_target_position - new_asteroid.position
 	## modulate new_thrust_vector that asteroids not always fly straight at the player
 	var added_thrust = randi_range(MIN_THRUST, MAX_THRUST)
@@ -129,5 +143,3 @@ func _on_clean_asteroids() -> void:
 func _on_increase_difficulty() -> void:
 	asteroid_spawn_timer.wait_time -= TIMER_DECREMENT
 	max_asteroid_fractures += FRACTURE_INCREMENT
-	print("new fracture amount " + str(max_asteroid_fractures))
-	print("new wait time" + str(asteroid_spawn_timer.wait_time))

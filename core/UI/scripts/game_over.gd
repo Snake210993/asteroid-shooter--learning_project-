@@ -3,11 +3,16 @@ extends Control
 
 signal back_to_menu
 
+func set_focus() -> void:
+	$MarginContainer/VBoxContainer/button_with_sound.grab_focus()
+
+
 func update_score() -> void:
 	score.text = str(GLOBAL_DATA.points)
 
 func show_game_over() -> void:
 	visible = true
+	set_focus()
 
 func hide_game_over() -> void:
 	visible = false

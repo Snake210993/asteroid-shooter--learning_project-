@@ -22,8 +22,8 @@ buses/default_bus_layout="uid://cocqfuy7hra24"
 
 [autoload]
 
-GLOBAL_DATA="*res://core/globals/global_asteroid_DATA.gd"
 AudioManager="*res://_reusable/autoloads/audio_manager.tscn"
+GLOBAL_DATA="*res://core/globals/global_data.tscn"
 
 [display]
 
@@ -39,6 +39,7 @@ enabled=PackedStringArray("res://addons/editor_notes/plugin.cfg", "res://addons/
 
 Asteroid_Group=""
 Player="player ship"
+persistent=""
 
 [input]
 

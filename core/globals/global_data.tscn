@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://balof8mb1uk2m"]
+
+[ext_resource type="Script" uid="uid://1u137na5t183" path="res://core/globals/scripts/global_asteroid_DATA.gd" id="1_8wnmb"]
+
+[node name="global_data" type="Node" groups=["persistent"]]
+script = ExtResource("1_8wnmb")

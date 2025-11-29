@@ -7,6 +7,8 @@ extends Node2D
 @onready var damaged_particles: GPUParticles2D = $Ship/damaged_particles
 @onready var thruster_particles: GPUParticles2D = $Ship/ThrusterParticles
 
+@export var ship_explosion_scene : PackedScene
+
 const SHIP_SHOOTING_SFX = "ship_shooting_sfx"
 const SHIP_DEATH_SFX = "ship_death_explosion"
 const SHIP_DAMAGED_SFX = "ship_damaged_sfx"
@@ -26,17 +28,32 @@ const PROJECTILE = preload("res://_reusable/components/projectile.tscn")
 
 signal player_died
 
+var screen_size : Vector2
+
 var is_controllable: bool = true
 var engine_is_running : bool = false 
 var ship_is_damaged : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var screen_size = get_viewport().size
+	_update_screen_size()
 	set_controllable(true)
+	_update_position()
+	get_viewport().size_changed.connect(_update_screen_size)
+
+func _update_position() -> void:
 	position.x = screen_size.x / 2
 	position.y = screen_size.y / 2
-	
+func _update_screen_size() -> void:
+	var visible_rectangle : Rect2 = get_viewport().get_visible_rect()
+	screen_size = visible_rectangle.size
+	_update_position()
+
+func spawn_explosion(in_explosion_scene : PackedScene) -> void:
+	var detached_root: Node = get_node("/root/Asteroid_Root_Node/detached_particles")
+	var explosion_instance: Node2D = in_explosion_scene.instantiate()
+	detached_root.add_child(explosion_instance)
+	explosion_instance.global_position = ship.global_position
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Fire"): _fire_projectile()
@@ -95,11 +112,13 @@ func _on_health_zero_health_reached() -> void:
 	toggle_visibility(false)
 	if ship_is_damaged:
 		AudioManager.stop_looping_audio_stream(ship_damaged_audio_control_token)
-	if engine_is_running:
 		damaged_particles.emitting = false
+		ship_is_damaged = false
+	if engine_is_running:
+		thruster_particles.emitting = false
 		toggle_engine_sounds(engine_is_running)
-	thruster_particles.emitting = false
 	AudioManager.play_audio_stream(SHIP_DEATH_SFX, &"SFX")
+	spawn_explosion(ship_explosion_scene)
 	emit_signal("player_died")
 
 
@@ -108,14 +127,13 @@ func respawn() -> void:
 	health._reset_health()
 	ship.velocity = Vector2.ZERO
 	ship.rotation = 0.0
-	var screen_size = get_viewport().size
 	ship.position = Vector2(screen_size.x * 0.5, screen_size.y * 0.5)
 	set_controllable(true)
 	toggle_visibility(true)
 	set_collision_enabled(false)
 	##enable invincible shader
 	invincibility_frames.start()
-	
+
 func toggle_visibility(new_visibility) -> void:
 	visible = new_visibility
 
@@ -144,3 +162,13 @@ func _on_is_damaged(_in_health) -> void:
 	var process_material: ParticleProcessMaterial = damaged_particles.process_material as ParticleProcessMaterial
 	process_material.direction = Vector3(direction_x, direction_y, 0.0)
 	damaged_particles.emitting = true
+
+func reset_stats_ship() -> void:
+	if ship_is_damaged:
+		AudioManager.stop_looping_audio_stream(ship_damaged_audio_control_token)
+		damaged_particles.emitting = false
+	if engine_is_running:
+		thruster_particles.emitting = false
+		toggle_engine_sounds(engine_is_running)
+	engine_is_running = false
+	ship_is_damaged = false

@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0giwlrmexom7"]
+[gd_scene load_steps=4 format=3 uid="uid://d0giwlrmexom7"]
 
 [ext_resource type="Theme" uid="uid://bvudsuymnp2kj" path="res://core/resources/theme/asteroid_theme.tres" id="1_kred3"]
 [ext_resource type="Script" uid="uid://76ekjjkp63jp" path="res://core/UI/scripts/ui_respawn_window.gd" id="2_urxkm"]
 [ext_resource type="PackedScene" uid="uid://dmuk0fyhkw4xd" path="res://_reusable/ui_scenes/button_with_sound.tscn" id="3_wrbvv"]
-[ext_resource type="AudioStream" uid="uid://dokujvm725pfi" path="res://assets/audio_files/UI/Signal Positive JRPG A.wav" id="4_8apin"]
 
 [node name="Respawn" type="Control"]
 layout_mode = 3
@@ -39,16 +38,12 @@ layout_mode = 2
 layout_mode = 2
 text = "Yes"
 flat = true
-clicked_stream = ExtResource("4_8apin")
-selected_bus = &"UI"
 
 [node name="End" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_wrbvv")]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "End"
 flat = true
-clicked_stream = ExtResource("4_8apin")
-selected_bus = &"UI"
 
 [connection signal="button_clicked" from="MarginContainer/VBoxContainer/HBoxContainer/Yes" to="." method="_on_yes_pressed"]
 [connection signal="button_clicked" from="MarginContainer/VBoxContainer/HBoxContainer/End" to="." method="_on_end_pressed"]

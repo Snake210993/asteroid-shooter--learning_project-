@@ -10,6 +10,14 @@ signal master_audio_changed
 signal sfx_audio_changed
 signal music_audio_changed
 
+func set_focus() -> void:
+	$button_with_sound.grab_focus()
+	
+func show_options() -> void:
+	visible = true
+	set_focus()
+func hide_options() -> void:
+	visible = false
 
 func _on_toggle_self_damage_toggled(toggled_on: bool) -> void:
 	self_damage_toggle.emit(toggled_on)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddcc5xru37pxh"]
+[gd_scene load_steps=7 format=3 uid="uid://ddcc5xru37pxh"]
 
 [ext_resource type="Script" uid="uid://d0fapxji327np" path="res://core/scenes/objects/script/asteroid.gd" id="1_qgbst"]
+[ext_resource type="PackedScene" uid="uid://dghwrd7qrwf6f" path="res://core/particles/explosion_large.tscn" id="2_3ljap"]
 [ext_resource type="Texture2D" uid="uid://cpjra7xgj1427" path="res://core/resources/textures/asteroid_1.tres" id="2_ywh1g"]
 [ext_resource type="PackedScene" uid="uid://d12dcf3qc13ai" path="res://_reusable/components/health.tscn" id="3_3ljap"]
 [ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://_reusable/components/screen_wrap.tscn" id="4_u7o8a"]
@@ -15,6 +16,7 @@ contact_monitor = true
 max_contacts_reported = 10
 linear_damp_mode = 1
 script = ExtResource("1_qgbst")
+export_explosion_scene = ExtResource("2_3ljap")
 
 [node name="asteroid_texture" type="Sprite2D" parent="."]
 texture_filter = 1

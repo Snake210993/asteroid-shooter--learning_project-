@@ -1,9 +1,17 @@
 extends Node2D
 
 
-@onready var screen_size = get_viewport().size
+var screen_size: Vector2
 
 var IS_SCREEN_WRAPPING : bool = true
+
+func _ready() -> void:
+	_update_screen_size()
+	get_viewport().size_changed.connect(_update_screen_size)
+
+func _update_screen_size() -> void:
+	var visible_rectangle : Rect2 = get_viewport().get_visible_rect()
+	screen_size = visible_rectangle.size
 
 func screen_wrap():
 	if IS_SCREEN_WRAPPING:

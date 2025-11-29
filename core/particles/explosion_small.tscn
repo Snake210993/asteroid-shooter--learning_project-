@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5bjb45ifet40"]
+
+[ext_resource type="Texture2D" uid="uid://dsx1hq0t77j64" path="res://core/resources/textures/projectile.tres" id="1_0qvo5"]
+[ext_resource type="Material" uid="uid://bcohch3r43j5v" path="res://core/resources/particle_materials/particle_material_small_asteroid.tres" id="2_0qvo5"]
+[ext_resource type="Script" uid="uid://b7pnto07i360w" path="res://core/particles/scripts/explosion_particles.gd" id="3_aqwyh"]
+
+[node name="explosion_particles" type="GPUParticles2D"]
+emitting = false
+amount = 250
+texture = ExtResource("1_0qvo5")
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = ExtResource("2_0qvo5")
+script = ExtResource("3_aqwyh")

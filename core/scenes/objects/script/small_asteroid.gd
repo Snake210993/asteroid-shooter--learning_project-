@@ -5,9 +5,11 @@ const DEATH_AUDIO_2 = "asteroid_breaking_small"
 func _on_health_zero_health_reached() -> void:
 	GLOBAL_DATA.remove_self_from_asteroids(self)
 	AudioManager.play_audio_stream(DEATH_AUDIO_2, &"SFX")
-	queue_free()
 	GLOBAL_DATA.add_points(kill_score)
+	spawn_explosion(export_explosion_scene)
 	receive_points.emit()
+	queue_free()
+
 
 func _ready() -> void:
 	super()
