@@ -40,16 +40,10 @@ layout_mode = 1
 [node name="Main_Menu" parent="UI_Root" instance=ExtResource("8_67qwa")]
 layout_mode = 1
 
-[node name="Highscore" parent="UI_Root" node_paths=PackedStringArray("name_label_lookup") instance=ExtResource("9_4qhbw")]
+[node name="Highscore" parent="UI_Root" instance=ExtResource("9_4qhbw")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
-name_label_lookup = {
-NodePath("MarginContainer/HighscoreContainer/Highscore1/Nr_1"): NodePath("MarginContainer/HighscoreContainer/Highscore1/Name_1"),
-NodePath("MarginContainer/HighscoreContainer/Highscore2/Nr_2"): NodePath("MarginContainer/HighscoreContainer/Highscore2/Name_2"),
-NodePath("MarginContainer/HighscoreContainer/Highscore3/Nr_3"): NodePath("MarginContainer/HighscoreContainer/Highscore3/Name_3"),
-NodePath("MarginContainer/HighscoreContainer/Highscore4/Nr_4"): NodePath("MarginContainer/HighscoreContainer/Highscore4/Name_4"),
-NodePath("MarginContainer/HighscoreContainer/Highscore5/Nr_5"): NodePath("MarginContainer/HighscoreContainer/Highscore5/Name_5")
-}
 
 [node name="Credits" parent="UI_Root" instance=ExtResource("9_covi4")]
 visible = false

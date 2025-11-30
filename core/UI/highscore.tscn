@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://bvudsuymnp2kj" path="res://core/resources/theme/asteroid_theme.tres" id="1_smcit"]
 [ext_resource type="PackedScene" uid="uid://dmuk0fyhkw4xd" path="res://_reusable/ui_scenes/button_with_sound.tscn" id="2_smcit"]
 
-[node name="Highscore" type="Control" node_paths=PackedStringArray("array_of_labels", "name_label_lookup") groups=["persistent"]]
+[node name="Highscore" type="Control" groups=["persistent"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,14 +13,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_smcit")
 script = ExtResource("1_qu46c")
-array_of_labels = [NodePath("MarginContainer/HighscoreContainer/Highscore1/Nr_1"), NodePath("MarginContainer/HighscoreContainer/Highscore2/Nr_2"), NodePath("MarginContainer/HighscoreContainer/Highscore3/Nr_3"), NodePath("MarginContainer/HighscoreContainer/Highscore4/Nr_4"), NodePath("MarginContainer/HighscoreContainer/Highscore5/Nr_5")]
-name_label_lookup = {
-NodePath("MarginContainer/HighscoreContainer/Highscore1/Nr_1"): NodePath("MarginContainer/HighscoreContainer/Highscore1/Name_1"),
-NodePath("MarginContainer/HighscoreContainer/Highscore2/Nr_2"): NodePath("MarginContainer/HighscoreContainer/Highscore2/Name_2"),
-NodePath("MarginContainer/HighscoreContainer/Highscore3/Nr_3"): NodePath("MarginContainer/HighscoreContainer/Highscore3/Name_3"),
-NodePath("MarginContainer/HighscoreContainer/Highscore4/Nr_4"): NodePath("MarginContainer/HighscoreContainer/Highscore4/Name_4"),
-NodePath("MarginContainer/HighscoreContainer/Highscore5/Nr_5"): NodePath("MarginContainer/HighscoreContainer/Highscore5/Name_5")
-}
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -71,12 +71,14 @@ func _on_music_audio_changed(value : float) -> void:
 func _highscore_requested() -> void:
 	main_menu.hide_main_menu()
 	highscore.show_highscore()
-	highscore.sort_highscores(GLOBAL_DATA.highscores)
+	GLOBAL_DATA.sort_highscores()
+	highscore.apply_scores_to_highscores(GLOBAL_DATA.array_highscores_2d)
 	current_menu = HIGHSCORE_STATE
 	highscore.set_focus()
 
 func _exit_game_requested() -> void:
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST) #this should trigger saving and other quitting functionality
+	GLOBAL_DATA.save_game()
 	get_tree().quit()
 func _credits_requested() -> void:
 	main_menu.hide_main_menu()
@@ -180,14 +182,16 @@ func _on_player_died() -> void:
 		else : _show_game_over()
 
 func _check_if_score_is_new_highscore() -> bool:
-	GLOBAL_DATA.highscores.sort()
-	if GLOBAL_DATA.points > GLOBAL_DATA.highscores.get(0): return true
+	GLOBAL_DATA.sort_highscores()
+	if GLOBAL_DATA.points > GLOBAL_DATA.array_highscores_2d.get(0).get(0): return true
 	else: return false
 
 
 func _commit_to_highscore(new_name: String) -> void:
-	highscore.add_new_highscore(new_name, GLOBAL_DATA.points, GLOBAL_DATA.highscores)
-	highscore.sort_highscores(GLOBAL_DATA.highscores)
+	##enter highscore into highscore 2d array
+	GLOBAL_DATA.sort_highscores()
+	GLOBAL_DATA.array_highscores_2d[0][1] = new_name
+	GLOBAL_DATA.array_highscores_2d[0][0] = GLOBAL_DATA.points
 	enter_highscore_field.hide_enter_name_field()
 	_show_game_over()
 
