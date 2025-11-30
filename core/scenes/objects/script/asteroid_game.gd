@@ -146,6 +146,7 @@ func _start_game_requested() -> void:
 	GLOBAL_DATA.reset_points()
 	ui.update_score(GLOBAL_DATA.points)
 	emit_signal("clean_asteroids")
+	asteroid_spawner.reset_difficulty()
 	state = "Alive"
 	current_point_threshold = 0
 #endregion
@@ -202,7 +203,6 @@ func increase_difficulty_check(current_points : int):
 		if current_point_threshold < POINT_THRESHOLD_LEVEL_FOUR:
 			emit_signal("increase_difficulty")
 			current_point_threshold = POINT_THRESHOLD_LEVEL_FOUR
-			print("difficulty level 4 reached")
 	elif current_points >= POINT_THRESHOLD_LEVEL_THREE:
 		if current_point_threshold < POINT_THRESHOLD_LEVEL_THREE:
 			emit_signal("increase_difficulty")

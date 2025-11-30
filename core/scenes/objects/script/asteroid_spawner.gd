@@ -34,8 +34,11 @@ var bottom_spawning_rectangle : Rect2i
 
 var rectangle_array : Array[Rect2i]
 
-var max_asteroid_fractures = 5
+const MIN_ASTEROID_FRACTURES : int = 5
+const MAX_WAIT_TIME : float = 5.0
 
+
+var asteroid_fractures : int = 5
 var is_spawning_enabled : bool = false
 
 
@@ -46,6 +49,9 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_update_screen_size)
 	##recalculate rectangles on change!!!
 
+func reset_difficulty() -> void:
+	asteroid_spawn_timer.wait_time = MAX_WAIT_TIME
+	asteroid_fractures = MIN_ASTEROID_FRACTURES
 
 func calculate_rectangles() -> void:
 	rectangle_array.clear()
@@ -108,7 +114,7 @@ func _spawn_random_asteroid() -> void:
 	new_asteroid.rotation = randi_range(0, MAX_ROTATION)
 	new_asteroid.has_fractured_spawn_small_asteroids.connect(Callable(self, "_has_fractured_spawn_small_asteroids"))
 	new_asteroid.receive_points.connect(Callable(asteroid_root_node, "_on_receive_points"))
-	new_asteroid.edit_fracture_amount(max_asteroid_fractures)
+	new_asteroid.edit_fracture_amount(asteroid_fractures)
 	add_child(new_asteroid)
 	
 	GLOBAL_DATA.add_to_asteroids(new_asteroid)
@@ -142,4 +148,4 @@ func _on_clean_asteroids() -> void:
 
 func _on_increase_difficulty() -> void:
 	asteroid_spawn_timer.wait_time -= TIMER_DECREMENT
-	max_asteroid_fractures += FRACTURE_INCREMENT
+	asteroid_fractures += FRACTURE_INCREMENT
