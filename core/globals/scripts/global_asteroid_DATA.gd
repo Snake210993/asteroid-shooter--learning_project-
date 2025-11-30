@@ -40,5 +40,4 @@ func save_game() -> void:
 func load_game() -> void:
 	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
 	array_highscores_2d = save_file.get_var()
-	print(array_highscores_2d)
 	save_file.close()

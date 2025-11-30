@@ -4,6 +4,9 @@ extends Control
 signal name_submit(new_name : String)
 
 @onready var score_text: Label = $MarginContainer/VBoxContainer/score_text
+@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
+
+const NEW_HIGHSCORE_SFX = "new_highscore_sfx"
 
 func set_focus() -> void:
 	$MarginContainer/VBoxContainer/field_enter_name.grab_focus()
@@ -21,4 +24,5 @@ func _on_field_enter_name_text_submitted(new_text: String) -> void:
 	name_submit.emit(new_text) # Replace with function body.
 
 func new_highscore_fluff() -> void:
-	print("enter fluff")
+	AudioManager.play_audio_stream(NEW_HIGHSCORE_SFX, &"SFX")
+	gpu_particles_2d.emitting = true

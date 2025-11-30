@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://p14fcmrepdws"]
+[gd_scene load_steps=4 format=3 uid="uid://p14fcmrepdws"]
 
 [ext_resource type="Theme" uid="uid://bvudsuymnp2kj" path="res://core/resources/theme/asteroid_theme.tres" id="1_cjlnw"]
 [ext_resource type="Script" uid="uid://b4kmmnyxmcs5m" path="res://core/UI/scripts/enter_name_field.gd" id="2_c6afh"]
+[ext_resource type="PackedScene" uid="uid://47yhqrg7r2m5" path="res://core/particles/confetti_particles.tscn" id="3_6cpes"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -47,5 +48,8 @@ placeholder_text = "ENTER NAME HERE"
 alignment = 1
 expand_to_text_length = true
 flat = true
+
+[node name="GPUParticles2D" parent="." instance=ExtResource("3_6cpes")]
+position = Vector2(395, 169)
 
 [connection signal="text_submitted" from="MarginContainer/VBoxContainer/field_enter_name" to="." method="_on_field_enter_name_text_submitted"]

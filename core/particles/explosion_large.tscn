@@ -10,6 +10,7 @@ amount = 250
 texture = ExtResource("1_g7d33")
 one_shot = true
 explosiveness = 1.0
+randomness = 1.0
 fixed_fps = 60
 process_material = ExtResource("2_54ahs")
 script = ExtResource("3_chn67")

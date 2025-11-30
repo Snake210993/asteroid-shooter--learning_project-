@@ -12,9 +12,11 @@ config_version=5
 
 config/name="Asteroid Shooter"
 config/description="an Asteroid Clone"
-config/version="0.8"
+config/version="1.0"
 run/main_scene="uid://cditvy3j6e17w"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+config/icon="uid://dsmf50fl2mtq4"
 
 [audio]
 

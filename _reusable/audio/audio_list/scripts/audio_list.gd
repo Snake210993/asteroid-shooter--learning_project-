@@ -9,11 +9,11 @@ const GAME_MUSIC_PLAYLIST_IDENTIFIER : String = "game_music_playlist_key"
 
 
 #preloads
-const GAME_MUSIC_PLAYLIST_RANDOM_MIXER : AudioStream = preload("uid://cxovxqfrvtdej")
+const GAME_MUSIC_PLAYLIST : AudioStream = preload("uid://cxovxqfrvtdej")
 
 const AUDIO_DICTIONARY : Dictionary [String, AudioStream] = {
 
-	GAME_MUSIC_PLAYLIST_IDENTIFIER : GAME_MUSIC_PLAYLIST_RANDOM_MIXER,
+	GAME_MUSIC_PLAYLIST_IDENTIFIER : GAME_MUSIC_PLAYLIST,
 	##______________________________________________________
 	##below are UI specific parts of the AudioManager Dictionary
 	##______________________________________________________
@@ -27,7 +27,8 @@ const AUDIO_DICTIONARY : Dictionary [String, AudioStream] = {
 	SHIP_SHOOTING_IDENTIFIER : SHIP_SHOOTING_SFX,
 	SHIP_DEATH_EXPLOSION_IDENTIFIER : SHIP_DEATH_EXPLOSION_SFX,
 	SHIP_DAMAGED_IDENTIFIER : SHIP_DAMAGED_SFX,
-	SHIP_ENGINE_RUNNING_IDENTIFIER : SHIP_ENGINE_RUNNING_SFX
+	SHIP_ENGINE_RUNNING_IDENTIFIER : SHIP_ENGINE_RUNNING_SFX,
+	NEW_HIGHSCORE_REACHED_IDENTIFIER : NEW_HIGHSCORE_REACHED_SFX
 }
 
 func return_audio_data(audio_identifier) -> AudioStream:
@@ -60,7 +61,7 @@ const SHIP_SHOOTING_IDENTIFIER = "ship_shooting_sfx"
 const SHIP_DAMAGED_IDENTIFIER = "ship_damaged_sfx"
 const SHIP_DEATH_EXPLOSION_IDENTIFIER = "ship_death_explosion"
 const SHIP_ENGINE_RUNNING_IDENTIFIER = "ship_engine_sfx"
-
+const NEW_HIGHSCORE_REACHED_IDENTIFIER = "new_highscore_sfx"
 
 #preloads
 const ASTEROID_BREAKING_LARGE_RANDOM_MIXER = preload("uid://buqy0m2hoh5uk")
@@ -69,3 +70,4 @@ const SHIP_SHOOTING_SFX = preload("uid://b4f2yi74epjt1")
 const SHIP_DEATH_EXPLOSION_SFX = preload("uid://bv4uk4exn4f2t")
 const SHIP_DAMAGED_SFX = preload("uid://cyqssa707gyxj")
 const SHIP_ENGINE_RUNNING_SFX = preload("uid://b2fbxx6oh43b")
+const NEW_HIGHSCORE_REACHED_SFX = preload("uid://m38hlon0har1")
