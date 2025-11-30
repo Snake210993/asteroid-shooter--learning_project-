@@ -49,6 +49,7 @@ func _update_screen_size() -> void:
 	screen_size = visible_rectangle.size
 	_update_position()
 
+
 func spawn_explosion(in_explosion_scene : PackedScene) -> void:
 	var detached_root: Node = get_node("/root/Asteroid_Root_Node/detached_particles")
 	var explosion_instance: Node2D = in_explosion_scene.instantiate()

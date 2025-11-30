@@ -55,7 +55,7 @@ func calculate_rectangles() -> void:
 	rectangle_array.push_back(right_spawning_rectangle)
 	bottom_spawning_rectangle = Rect2i(0, int(screen_size.y), int(screen_size.x), 100)
 	rectangle_array.push_back(bottom_spawning_rectangle)
-	top_spawning_rectangle = Rect2i(0, 0, int(screen_size.x), -100)
+	top_spawning_rectangle = Rect2i(0, -100, int(screen_size.x), 100)
 	rectangle_array.push_back(top_spawning_rectangle)
 
 
