@@ -24,8 +24,12 @@ const ASTEROID_STARTING_AMOUNT : int = 6
 const MAXIMUM_ASTEROID_COUNT : int = 50
 
 const FRACTURE_INCREMENT : int = 3
+const MAX_THRUST_DECREMENT : int = 5
+const MIN_THRUST_DECREMENT : int = 2
 const TIMER_DECREMENT : float = 1.0
 
+var current_max_thrust : int = MAX_THRUST
+var current_min_thrust : int = MIN_THRUST
 
 var left_spawning_rectangle : Rect2i
 var right_spawning_rectangle : Rect2i
@@ -52,6 +56,8 @@ func _ready() -> void:
 func reset_difficulty() -> void:
 	asteroid_spawn_timer.wait_time = MAX_WAIT_TIME
 	asteroid_fractures = MIN_ASTEROID_FRACTURES
+	current_max_thrust = MAX_THRUST
+	current_min_thrust = MIN_THRUST
 
 func calculate_rectangles() -> void:
 	rectangle_array.clear()
@@ -107,7 +113,7 @@ func _spawn_random_asteroid() -> void:
 	var calculated_target_position = Vector2(screen_size.x/2, randf_range(100, screen_size.y - 100))
 	var new_thrust_vector = calculated_target_position - new_asteroid.position
 	## modulate new_thrust_vector that asteroids not always fly straight at the player
-	var added_thrust = randi_range(MIN_THRUST, MAX_THRUST)
+	var added_thrust = randi_range(current_min_thrust, current_max_thrust)
 	var added_thrust_vector = Vector2(added_thrust,added_thrust)
 	new_asteroid.thrust = new_thrust_vector.normalized() * added_thrust_vector
 	new_asteroid.torque = randi_range(MIN_TORQUE, MAX_TORQUE)
@@ -149,3 +155,6 @@ func _on_clean_asteroids() -> void:
 func _on_increase_difficulty() -> void:
 	asteroid_spawn_timer.wait_time -= TIMER_DECREMENT
 	asteroid_fractures += FRACTURE_INCREMENT
+	current_max_thrust -= MAX_THRUST_DECREMENT
+	current_min_thrust -= MIN_THRUST_DECREMENT
+	

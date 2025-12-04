@@ -1,16 +1,17 @@
 extends Node2D
 
 ##this component handles health, it communicates when health ends trough a custom signal
+class_name HealthComponent
 
 ##max health
 @export var health : float = 100:
-	get: return health
-@export var max_health : float = 100:
-	get: return max_health
-	set(new_health): max_health = new_health
+	set(new_health):
+		health = clamp(new_health, 0.0, max_health)
+@export var max_health : float = 100
 
 signal zero_health_reached
-signal is_damaged
+signal damaged
+signal healed
 
 func take_damage(damage: float):
 	health -= damage
@@ -22,9 +23,10 @@ func take_damage(damage: float):
 
 func heal_damage(healing: float):
 	health += healing
+	healed.emit(health)
 
 func was_damaged():
-	is_damaged.emit(health)
+	damaged.emit(health)
 
 func zero_health():
 	emit_signal("zero_health_reached")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://b6178gqwohnia"]
 
-[ext_resource type="Script" uid="uid://dv7sa7de8213q" path="res://_reusable/components/scripts/projectile.gd" id="1_eusr3"]
-[ext_resource type="Texture2D" uid="uid://dsx1hq0t77j64" path="res://core/resources/textures/projectile.tres" id="2_eusr3"]
-[ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://_reusable/components/screen_wrap.tscn" id="3_y2sfx"]
+[ext_resource type="Script" uid="uid://dv7sa7de8213q" path="res://core/scenes/objects/script/projectile.gd" id="1_n86g2"]
+[ext_resource type="PackedScene" uid="uid://mun431b1178s" path="res://_reusable/components/screen_wrap.tscn" id="2_k0gmw"]
+[ext_resource type="Texture2D" uid="uid://dsx1hq0t77j64" path="res://core/resources/textures/projectile.tres" id="3_epneg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eusr3"]
 size = Vector2(1, 1)
@@ -10,12 +10,12 @@ size = Vector2(1, 1)
 [node name="Projectile" type="Node2D"]
 texture_filter = 1
 scale = Vector2(2, 2)
-script = ExtResource("1_eusr3")
+script = ExtResource("1_n86g2")
 
-[node name="Screen_Wrap" parent="." instance=ExtResource("3_y2sfx")]
+[node name="Screen_Wrap" parent="." instance=ExtResource("2_k0gmw")]
 
 [node name="Projectile_texture" type="Sprite2D" parent="."]
-texture = ExtResource("2_eusr3")
+texture = ExtResource("3_epneg")
 
 [node name="Projectile_Area" type="Area2D" parent="."]
 collision_layer = 2

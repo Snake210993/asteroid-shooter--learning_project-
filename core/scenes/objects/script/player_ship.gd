@@ -1,11 +1,12 @@
 extends Node2D
 
 @onready var ship: CharacterBody2D = $Ship
-@onready var health: Node2D = $Ship/Health
+@onready var health: HealthComponent = $Ship/Health
 @onready var screen_wrap: Node2D = $Ship/Screen_Wrap
 @onready var invincibility_frames: Timer = $Ship/invincibility_frames
 @onready var damaged_particles: GPUParticles2D = $Ship/damaged_particles
 @onready var thruster_particles: GPUParticles2D = $Ship/ThrusterParticles
+@onready var ship_texture: Sprite2D = $Ship/Ship_Texture
 
 @export var ship_explosion_scene : PackedScene
 
@@ -24,7 +25,7 @@ const TURN_LEFT = -1.0
 const TURN_RIGHT = 1.0
 const BREAKING_POWER := 2.0
 
-const PROJECTILE = preload("res://_reusable/components/projectile.tscn")
+const PROJECTILE = preload("res://core/scenes/objects/projectile.tscn")
 
 signal player_died
 
@@ -134,7 +135,8 @@ func respawn() -> void:
 	set_collision_enabled(false)
 	##enable invincible shader
 	invincibility_frames.start()
-
+	ship_texture.material.set("shader_parameter/invincible", true)
+	
 func toggle_visibility(new_visibility) -> void:
 	visible = new_visibility
 
@@ -153,6 +155,7 @@ func set_collision_enabled(enable: bool) -> void:
 
 func _on_invincibility_frames_timeout() -> void:
 	set_collision_enabled(true)
+	ship_texture.material.set("shader_parameter/invincible", false)
 
 
 func _on_is_damaged(_in_health) -> void:
